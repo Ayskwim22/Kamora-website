@@ -48,6 +48,8 @@ const customizationOptions = [
   { label: 'Extra rice', value: 'Extra rice', price: 15, image: rice },
 ];
 
+const parsePriceLabel = (priceLabel: string) => Number(priceLabel.replace(/[^0-9.]/g, ''));
+
 const comboPricingMap: Record<string, Record<string, number>> = {
   'Kamofile original with gravy': { 'Mushroom soup': 89, 'Crab and corn soup': 95 },
   'Kamofile spicy flavor': { 'Mushroom soup': 95, 'Crab and corn soup': 99 },
@@ -58,22 +60,22 @@ const comboPricingMap: Record<string, Record<string, number>> = {
 };
 
 const menuItems: MenuItem[] = [
-  { id: 'Kamofile-original-with-gravy', name: 'Kamofile original with gravy', category: 'meal', price: 108, priceLabel: '₱39.00', image: mealOriginalImg },
-  { id: 'Kamofile-spicy-flavor', name: 'Kamofile spicy flavor', category: 'meal', price: 112, priceLabel: '₱45.00', image: mealSpicyImg },
-  { id: 'Kamofile-buttered-garlic-flavor', name: 'Kamofile buttered garlic flavor', category: 'meal', price: 116, priceLabel: '₱45.00', image: mealGarlicImg },
-  { id: 'Kamofile-BBQ-flavor', name: 'Kamofile BBQ flavor', category: 'meal', price: 120, priceLabel: '₱45.00', image: mealBbqImg },
-  { id: 'Kamofile-a-la-king', name: 'Kamofile a la king', category: 'meal', price: 130, priceLabel: '₱49.00', image: mealAlakingImg },
-  { id: 'Cheesy-kamofile', name: 'Cheesy kamofile', category: 'meal', price: 128, priceLabel: '₱49.00', image: mealCheeseImg },
-  { id: 'kamora-burger-with-cheese', name: 'Kamora burger with cheese', category: 'burger', price: 105, priceLabel: '₱49.00', image: burgerWithCheeseImg },
-  { id: 'kamora-burger-deluxe', name: 'Kamora burger deluxe', category: 'burger', price: 115, priceLabel: '₱69.00', image: burgerDeluxeImg },
-  { id: 'kamo-bites-original', name: '6 pcs kamo-bites original', category: 'snacks', price: 102, priceLabel: '₱55.00', image: bitesOriginal},
-  { id: 'kamo-bites-spicy', name: '6 pcs kamo-bites spicy', category: 'snacks', price: 108, priceLabel: '₱65.00', image: bitesSpicy},
-  { id: 'kamo-bites-bbq', name: '6 pcs kamo-bites BBQ', category: 'snacks', price: 110, priceLabel: '₱65.00', image: bitesBbq},
-  { id: 'kamo-bites-buttered-garlic', name: '6 pcs kamo-bites buttered garlic', category: 'snacks', price: 114, priceLabel: '₱69.00', image: bitesGarlic },
-  { id: 'mushroom-soup', name: 'Mushroom soup', category: 'soup', price: 104, priceLabel: '₱39.00', comboPriceLabel: '₱89.00', comboPrice: 89, image: mushroomSoupImg },
-  { id: 'crab-and-corn-soup', name: 'Crab and corn soup', category: 'soup', price: 106, priceLabel: '₱45.00', comboPriceLabel: '₱95.00', comboPrice: 95, image: soupImg },
-  { id: 'ice-tea', name: 'Ice tea', category: 'drinks', price: 52, priceLabel: '₱19.00', image: iceTeaImg },
-  { id: 'red-ice-tea', name: 'Red tea', category: 'drinks', price: 55, priceLabel: '₱19.00', image: redIceTeaImg },
+  { id: 'Kamofile-original-with-gravy', name: 'Kamofile original with gravy', category: 'meal', price: parsePriceLabel('₱39.00'), priceLabel: '₱39.00', image: mealOriginalImg },
+  { id: 'Kamofile-spicy-flavor', name: 'Kamofile spicy flavor', category: 'meal', price: parsePriceLabel('₱45.00'), priceLabel: '₱45.00', image: mealSpicyImg },
+  { id: 'Kamofile-buttered-garlic-flavor', name: 'Kamofile buttered garlic flavor', category: 'meal', price: parsePriceLabel('₱45.00'), priceLabel: '₱45.00', image: mealGarlicImg },
+  { id: 'Kamofile-BBQ-flavor', name: 'Kamofile BBQ flavor', category: 'meal', price: parsePriceLabel('₱45.00'), priceLabel: '₱45.00', image: mealBbqImg },
+  { id: 'Kamofile-a-la-king', name: 'Kamofile a la king', category: 'meal', price: parsePriceLabel('₱49.00'), priceLabel: '₱49.00', image: mealAlakingImg },
+  { id: 'Cheesy-kamofile', name: 'Cheesy kamofile', category: 'meal', price: parsePriceLabel('₱49.00'), priceLabel: '₱49.00', image: mealCheeseImg },
+  { id: 'kamora-burger-with-cheese', name: 'Kamora burger with cheese', category: 'burger', price: parsePriceLabel('₱49.00'), priceLabel: '₱49.00', image: burgerWithCheeseImg },
+  { id: 'kamora-burger-deluxe', name: 'Kamora burger deluxe', category: 'burger', price: parsePriceLabel('₱69.00'), priceLabel: '₱69.00', image: burgerDeluxeImg },
+  { id: 'kamo-bites-original', name: '6 pcs kamo-bites original', category: 'snacks', price: parsePriceLabel('₱55.00'), priceLabel: '₱55.00', image: bitesOriginal},
+  { id: 'kamo-bites-spicy', name: '6 pcs kamo-bites spicy', category: 'snacks', price: parsePriceLabel('₱65.00'), priceLabel: '₱65.00', image: bitesSpicy},
+  { id: 'kamo-bites-bbq', name: '6 pcs kamo-bites BBQ', category: 'snacks', price: parsePriceLabel('₱65.00'), priceLabel: '₱65.00', image: bitesBbq},
+  { id: 'kamo-bites-buttered-garlic', name: '6 pcs kamo-bites buttered garlic', category: 'snacks', price: parsePriceLabel('₱69.00'), priceLabel: '₱69.00', image: bitesGarlic },
+  { id: 'mushroom-soup', name: 'Mushroom soup', category: 'soup', price: parsePriceLabel('₱39.00'), priceLabel: '₱39.00', comboPriceLabel: '₱89.00', comboPrice: 89, image: mushroomSoupImg },
+  { id: 'crab-and-corn-soup', name: 'Crab and corn soup', category: 'soup', price: parsePriceLabel('₱45.00'), priceLabel: '₱45.00', comboPriceLabel: '₱95.00', comboPrice: 95, image: soupImg },
+  { id: 'ice-tea', name: 'Ice tea', category: 'drinks', price: parsePriceLabel('₱19.00'), priceLabel: '₱19.00', image: iceTeaImg },
+  { id: 'red-ice-tea', name: 'Red tea', category: 'drinks', price: parsePriceLabel('₱19.00'), priceLabel: '₱19.00', image: redIceTeaImg },
 ];
 
 const Menu: React.FC = () => {
@@ -166,14 +168,14 @@ const Menu: React.FC = () => {
     const isDrinkItem = customizingItem.category === 'drinks';
     let customizationText = isDrinkItem ? selectedDrinkSize : `${selectedSize}`;
     let totalExtraPrice = 0;
-    const drinkPrice = selectedDrink
-      ? (customizingItem.category === 'burger' || customizingItem.category === 'snacks' || customizingItem.category === 'soup')
-        ? selectedDrinkSize === 'Large'
-          ? 29
-          : 19
-        : selectedDrinkSize === 'Large'
+    const drinkAddonPrice = isDrinkItem
+      ? selectedDrinkSize === 'Large'
         ? 10
         : 0
+      : selectedDrink
+      ? selectedDrinkSize === 'Large'
+        ? 29
+        : 19
       : 0;
     const addonLines: string[] = [];
 
@@ -192,11 +194,14 @@ const Menu: React.FC = () => {
       }
       if (selectedDrink) {
         customizationText += ` - Drink: ${selectedDrink} (${selectedDrinkSize})`;
-        totalExtraPrice += drinkPrice;
+        totalExtraPrice += drinkAddonPrice;
       }
     } else if (!isDrinkItem && (customizingItem.category === 'burger' || customizingItem.category === 'snacks' || customizingItem.category === 'soup') && selectedDrink) {
       customizationText += ` - Drink: ${selectedDrink} (${selectedDrinkSize})`;
-      totalExtraPrice += drinkPrice;
+      totalExtraPrice += drinkAddonPrice;
+    } else if (isDrinkItem) {
+      customizationText = `${selectedDrinkSize}`;
+      totalExtraPrice += drinkAddonPrice;
     }
 
     if (addonLines.length > 0) {
@@ -205,10 +210,11 @@ const Menu: React.FC = () => {
 
     const sanitizedCustomization = customizationText.trim().replace(/[^a-zA-Z0-9\s-]/g, '').replace(/\s+/g, '-').toLowerCase();
     const cartItemId = customizingItem.id + (sanitizedCustomization ? `-${sanitizedCustomization}` : '');
-    const itemPrice = customizingItem.category === 'drinks' ? (selectedDrinkSize === 'Large' ? 29 : 19) : customizingItem.price;
+    const itemPrice = customizingItem.price;
 
     addItem({
       id: cartItemId,
+      category: customizingItem.category,
       name: customizingItem.name,
       price: itemPrice,
       displayPrice: customizingItem.priceLabel,

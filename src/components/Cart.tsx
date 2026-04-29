@@ -8,6 +8,7 @@ type OrderDetails = {
     id: string;
     name: string;
     price: number;
+    displayPrice?: string;
     image: string;
     quantity: number;
     customization?: string;
@@ -31,9 +32,7 @@ const Cart: React.FC = () => {
   const [showReceipt, setShowReceipt] = useState(false);
   const [orderDetails, setOrderDetails] = useState<OrderDetails | null>(null);
   const [customizingItem, setCustomizingItem] = useState<CartItem | null>(null);
-  const [customizationNote, setCustomizationNote] = useState('');
-  const [selectedOption, setSelectedOption] = useState('No extras');
-  const [customOptionPrice, setCustomOptionPrice] = useState(0);
+  const [addonQuantities, setAddonQuantities] = useState<Record<string, number>>({});
 
   // New form fields
   const [pickupDate, setPickupDate] = useState('');
@@ -59,33 +58,45 @@ const Cart: React.FC = () => {
   const customizationOptions = [
     { label: 'No extras', value: 'No extras', price: 0 },
     { label: 'Extra gravy', value: 'Extra gravy', price: 15 },
-    { label: 'Extra cheese', value: 'Extra cheese', price: 25 },
-    { label: 'Spicy kick', value: 'Spicy kick', price: 20 },
+    { label: 'Extra rice', value: 'Extra rice', price: 15 },
   ];
+
+  const getCartCustomizationOptions = (category: string | undefined) => {
+    switch (category) {
+      case 'meal':
+        return customizationOptions.filter((option) => option.value !== 'No extras');
+      case 'snacks':
+      case 'burger':
+        return customizationOptions.filter((option) => option.value === 'Extra gravy');
+      case 'soup':
+        return customizationOptions.filter((option) => option.value === 'Extra rice');
+      default:
+        return [];
+    }
+  };
+
+  const parseCustomizationQuantities = (customization: string, optionValue: string) => {
+    const escaped = optionValue.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const match = customization.match(new RegExp(`${escaped}\\s*x(\\d+)`, 'i'));
+    return match ? Number(match[1]) : 0;
+  };
+
 
   const openCustomizationModal = (item: CartItem) => {
     const savedCustomization = item.customization ?? '';
-    const matchedOption = customizationOptions.find((option) =>
-      option.value !== 'No extras' && savedCustomization.startsWith(option.value)
-    );
+    const options = getCartCustomizationOptions(item.category);
+    const quantities = options.reduce<Record<string, number>>((acc, option) => {
+      acc[option.value] = parseCustomizationQuantities(savedCustomization, option.value);
+      return acc;
+    }, {});
 
     setCustomizingItem(item);
-    if (matchedOption) {
-      setSelectedOption(matchedOption.value);
-      setCustomOptionPrice(matchedOption.price);
-      setCustomizationNote(savedCustomization.slice(matchedOption.value.length).replace(/^ · /, ''));
-    } else {
-      setSelectedOption('No extras');
-      setCustomOptionPrice(item.extraPrice ?? 0);
-      setCustomizationNote(savedCustomization);
-    }
+    setAddonQuantities(quantities);
   };
 
   const closeCustomizationModal = () => {
     setCustomizingItem(null);
-    setCustomizationNote('');
-    setSelectedOption('No extras');
-    setCustomOptionPrice(0);
+    setAddonQuantities({});
   };
 
   const handleSaveCustomization = () => {
@@ -93,11 +104,18 @@ const Cart: React.FC = () => {
       return;
     }
 
-    const customizationText = selectedOption === 'No extras'
-      ? customizationNote
-      : `${selectedOption}${customizationNote ? ` · ${customizationNote}` : ''}`;
+    const options = getCartCustomizationOptions(customizingItem.category);
+    const selectedAddons = options
+      .filter((option) => (addonQuantities[option.value] || 0) > 0)
+      .map((option) => `${option.value} x${addonQuantities[option.value]}`);
 
-    updateItem(customizingItem.id, customizationText, customOptionPrice);
+    const customizationText = selectedAddons.join(' · ');
+
+    const totalExtraPrice = options.reduce((sum, option) => {
+      return sum + (addonQuantities[option.value] || 0) * option.price;
+    }, 0);
+
+    updateItem(customizingItem.id, customizationText || undefined, totalExtraPrice || undefined);
     closeCustomizationModal();
   };
 
@@ -113,11 +131,6 @@ const Cart: React.FC = () => {
       body.style.overflow = '';
     };
   }, [customizingItem, showReceipt, showConfirmation]);
-
-  const handleOptionChange = (optionValue: string, price: number) => {
-    setSelectedOption(optionValue);
-    setCustomOptionPrice(price);
-  };
 
   const handleCheckout = () => {
     // Basic validation for separate pickup/contact details
@@ -153,6 +166,12 @@ const Cart: React.FC = () => {
     setOrderDetails(newOrderDetails);
     setShowConfirmation(true);
   };
+
+  const cartCustomizationOptions = getCartCustomizationOptions(customizingItem?.category);
+  const customizationFee = cartCustomizationOptions.reduce(
+    (sum, option) => sum + (addonQuantities[option.value] || 0) * option.price,
+    0
+  );
 
   const isSunday = (dateString: string) => {
     const date = new Date(dateString);
@@ -329,45 +348,55 @@ const Cart: React.FC = () => {
             </div>
 
             <div className="space-y-3">
-              <p className="text-sm font-semibold text-gray-700">Choose an option</p>
-              <div className="grid grid-cols-2 gap-3">
-                {customizationOptions.map((option) => (
-                  <button
-                    key={option.value}
-                    type="button"
-                    onClick={() => handleOptionChange(option.value, option.price)}
-                    className={`rounded-2xl border px-4 py-3 text-left transition ${
-                      selectedOption === option.value
-                        ? 'border-kamora-orange bg-kamora-orange/10 text-kamora-dark'
-                        : 'border-gray-200 bg-white text-gray-700 hover:border-kamora-orange'
-                    }`}
-                  >
-                    <div className="flex items-center justify-between gap-3">
-                      <span>{option.label}</span>
-                      {option.price > 0 && <span className="text-sm text-kamora-orange">+₱{option.price}</span>}
-                    </div>
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <div className="bg-kamora-cream rounded-3xl p-4">
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
-                Special instructions <span className="text-gray-500">(optional)</span>
-              </label>
-              <textarea
-                value={customizationNote}
-                onChange={(e) => setCustomizationNote(e.target.value)}
-                rows={4}
-                placeholder="Optional: Add requests like less salt, extra sauce, or no onions"
-                className="w-full rounded-2xl border border-gray-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-kamora-orange"
-              />
+              <p className="text-sm font-semibold text-gray-700">Include Add-ons</p>
+              {cartCustomizationOptions.length > 0 ? (
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                  {cartCustomizationOptions.map((option) => {
+                    const qty = addonQuantities[option.value] || 0;
+                    return (
+                      <div key={option.value} className="rounded-2xl border border-gray-200 bg-white p-4">
+                        <div className="flex items-start justify-between gap-3">
+                          <div>
+                            <p className="font-semibold text-kamora-dark">{option.label}</p>
+                            <p className="text-sm text-kamora-orange">+₱{option.price}</p>
+                          </div>
+                          <div className="flex items-center gap-2 rounded-full border border-gray-200 bg-gray-50 px-3 py-2">
+                            <button
+                              type="button"
+                              onClick={() => setAddonQuantities((prev) => ({
+                                ...prev,
+                                [option.value]: Math.max(0, qty - 1),
+                              }))}
+                              className="w-8 h-8 rounded-full bg-white text-kamora-dark shadow-sm hover:bg-gray-100"
+                            >
+                              −
+                            </button>
+                            <span className="w-8 text-center font-semibold">{qty}</span>
+                            <button
+                              type="button"
+                              onClick={() => setAddonQuantities((prev) => ({
+                                ...prev,
+                                [option.value]: qty + 1,
+                              }))}
+                              className="w-8 h-8 rounded-full bg-white text-kamora-dark shadow-sm hover:bg-gray-100"
+                            >
+                              +
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : (
+                <p className="text-sm text-gray-500">No add-ons available for this item.</p>
+              )}
             </div>
 
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <p className="text-sm text-gray-500">Customization fee</p>
-                <p className="text-lg font-bold text-kamora-orange">+₱{customOptionPrice.toFixed(2)}</p>
+                <p className="text-lg font-bold text-kamora-orange">+₱{customizationFee.toFixed(2)}</p>
               </div>
               <div className="flex gap-3 flex-wrap">
                 <Button
@@ -555,7 +584,18 @@ const Cart: React.FC = () => {
               />
               <div className="flex-1 min-w-0">
                 <h4 className="font-semibold text-kamora-dark break-words whitespace-normal">{item.name}</h4>
-                <p className="text-kamora-orange font-bold">{item.displayPrice || `₱${item.price.toFixed(2)}`}</p>
+                {(() => {
+                  const unitPrice = item.price + (item.extraPrice ?? 0);
+                  return (
+                    <>
+                      <p className="text-kamora-orange font-bold">₱{unitPrice.toFixed(2)}</p>
+                      <p className="text-sm text-gray-500 mt-1">Qty: {item.quantity} × ₱{unitPrice.toFixed(2)}</p>
+                      {item.displayPrice && item.displayPrice !== `₱${item.price.toFixed(2)}` && (
+                        <p className="text-xs text-gray-400">Label: {item.displayPrice}</p>
+                      )}
+                    </>
+                  );
+                })()}
                 {item.customization && (
                   <p className="text-sm text-gray-500 mt-1">Customization: {item.customization}</p>
                 )}
@@ -585,7 +625,7 @@ const Cart: React.FC = () => {
                 </div>
                 <div className="flex flex-col items-start sm:items-end gap-2">
                   <p className="font-bold text-kamora-dark">
-                    ${(item.price * item.quantity + (item.extraPrice ?? 0) * item.quantity).toFixed(2)}
+                    ₱{((item.price + (item.extraPrice ?? 0)) * item.quantity).toFixed(2)}
                   </p>
                   <div className="flex flex-wrap gap-2">
                     <button

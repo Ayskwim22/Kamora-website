@@ -56,19 +56,20 @@ ORDER DETAILS:
 ${orderItems.map(item => {
   const customizationLines = item.customization ? `   Customization: ${item.customization}
 ` : '';
-  const extraPriceLine = item.extraPrice ? `   Extra fee: +$${item.extraPrice.toFixed(2)} each
+  const extraPriceLine = item.extraPrice ? `   Extra fee: +₱${item.extraPrice.toFixed(2)} each
 ` : '';
+  const unitPrice = item.price + (item.extraPrice ?? 0);
   return `${item.name}
    Quantity: ${item.quantity}
-   Price: $${item.price.toFixed(2)}
-${customizationLines}${extraPriceLine}   Subtotal: $${((item.price + (item.extraPrice ?? 0)) * item.quantity).toFixed(2)}
+   Unit Price: ₱${unitPrice.toFixed(2)}
+${customizationLines}${extraPriceLine}   Subtotal: ₱${(unitPrice * item.quantity).toFixed(2)}
    -------------------`;
 }).join('\n')}
 
 PAYMENT METHOD: ${paymentMethod.toUpperCase()}
 SHIPPING PROVIDER: ${shippingProvider.toUpperCase()}
 
-TOTAL AMOUNT: $${total.toFixed(2)}
+TOTAL AMOUNT: ₱${total.toFixed(2)}
 
 Thank you for choosing Kamora!
 Enjoy your meal!
@@ -151,8 +152,8 @@ Enjoy your meal!
                     ) : null}
                   </div>
                   <div className="text-right">
-                    <p className="font-medium">${((item.price + (item.extraPrice ?? 0)) * item.quantity).toFixed(2)}</p>
-                    <p className="text-sm text-gray-500">${item.price.toFixed(2)} each</p>
+                    <p className="font-medium">₱{((item.price + (item.extraPrice ?? 0)) * item.quantity).toFixed(2)}</p>
+                    <p className="text-sm text-gray-500">₱{(item.price + (item.extraPrice ?? 0)).toFixed(2)} each</p>
                   </div>
                 </div>
               ))}

@@ -1,56 +1,45 @@
 import React from 'react';
 
+type TabKey = 'menu' | 'about' | 'contact';
+
 interface LinkCard {
   id: string;
   title: string;
   image: string;
-  link?: string;
+  tab: TabKey;
   color?: string;
 }
 
 interface QuickLinksProps {
   title?: string;
   cards?: LinkCard[];
+  onNavigate?: (tab: TabKey) => void;
 }
 
 const QuickLinks: React.FC<QuickLinksProps> = ({
   title = 'Explore Kamora',
+  onNavigate,
   cards = [
     {
-      id: '1',
-      title: 'Our Story',
-      image: 'https://images.unsplash.com/photo-1495521821757-a1efb6729352?w=400&h=300&fit=crop',
+      id: 'menu',
+      title: 'Menu',
+      image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&h=600&fit=crop',
+      tab: 'menu',
       color: 'from-orange-400 to-orange-600',
     },
     {
-      id: '2',
-      title: 'Premium Quality',
-      image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop',
+      id: 'about',
+      title: 'About',
+      image: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&h=600&fit=crop',
+      tab: 'about',
       color: 'from-red-400 to-red-600',
     },
     {
-      id: '3',
-      title: 'Special Offers',
-      image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=300&fit=crop',
+      id: 'contact',
+      title: 'Contact',
+      image: 'https://images.unsplash.com/photo-1492724441997-5dc865305da4?w=800&h=600&fit=crop',
+      tab: 'contact',
       color: 'from-yellow-400 to-yellow-600',
-    },
-    {
-      id: '4',
-      title: 'Family Meals',
-      image: 'https://images.unsplash.com/photo-1585238341710-4ebb0c0c05c3?w=400&h=300&fit=crop',
-      color: 'from-green-400 to-green-600',
-    },
-    {
-      id: '5',
-      title: 'Mobile App',
-      image: 'https://images.unsplash.com/photo-1467272622938-7eacdf257dd9?w=400&h=300&fit=crop',
-      color: 'from-blue-400 to-blue-600',
-    },
-    {
-      id: '6',
-      title: 'Catering',
-      image: 'https://images.unsplash.com/photo-1504674900306-873d5d1ceb76?w=400&h=300&fit=crop',
-      color: 'from-purple-400 to-purple-600',
     },
   ],
 }) => {
@@ -72,11 +61,15 @@ const QuickLinks: React.FC<QuickLinksProps> = ({
           {cards.map((card, index) => (
             <a
               key={card.id}
-              href={card.link || '#'}
+              href={`#${card.tab}`}
+              onClick={(event) => {
+                event.preventDefault();
+                onNavigate?.(card.tab);
+              }}
               style={{
                 animation: `slideInUp 0.5s ease-out ${index * 0.1}s both`,
               }}
-              className="group relative h-64 sm:h-56 md:h-64 rounded-3xl overflow-hidden cursor-pointer transform transition-all duration-300 hover:scale-105 hover:-translate-y-2 shadow-lg hover:shadow-2xl"
+              className="group relative h-64 sm:h-56 md:h-64 rounded-3xl overflow-hidden cursor-pointer transform transition-all duration-300 hover:scale-105 hover:-translate-y-2 shadow-lg hover:shadow-2xl text-left"
             >
               {/* Background Image */}
               <img

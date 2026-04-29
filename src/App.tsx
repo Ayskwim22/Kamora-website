@@ -15,18 +15,35 @@ import './styles/index.css';
 
 type TabKey = 'home' | 'menu' | 'about' | 'contact';
 
+const hashToTab = (hash: string): TabKey => {
+  if (!hash || hash === '#') return 'home';
+  const normalized = hash.replace('#', '').toLowerCase();
+  if (normalized === 'home') return 'home';
+  if (normalized === 'menu' || normalized.startsWith('category-')) return 'menu';
+  if (normalized === 'about') return 'about';
+  if (normalized === 'contact') return 'contact';
+  return 'home';
+};
+
 const App: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<TabKey>('home');
+  const [activeTab, setActiveTab] = useState<TabKey>(() => {
+    if (typeof window === 'undefined') return 'home';
+    return hashToTab(window.location.hash);
+  });
 
   useEffect(() => {
-    const hash = window.location.hash;
-    if (hash.startsWith('#category-')) {
-      setActiveTab('menu');
-    }
+    const handleHashChange = () => {
+      setActiveTab(hashToTab(window.location.hash));
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
 
   const handleTabChange = (tab: TabKey) => {
     setActiveTab(tab);
+    const targetHash = tab === 'home' ? '' : `#${tab}`;
+    window.history.pushState(null, '', targetHash);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -37,7 +54,7 @@ const App: React.FC = () => {
           <Navbar activeTab={activeTab} onTabChange={handleTabChange} />
           {activeTab === 'home' && <EnhancedHero onNavigate={handleTabChange} />}
           {activeTab === 'home' && <ScrollTextMarquee />}
-          {activeTab === 'home' && <QuickLinks />}
+          {activeTab === 'home' && <QuickLinks onNavigate={handleTabChange} />}
           {activeTab === 'menu' && <Menu />}
           {activeTab === 'about' && <About />}
           {activeTab === 'contact' && <Contact />}

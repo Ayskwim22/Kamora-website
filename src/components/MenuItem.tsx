@@ -9,7 +9,7 @@ interface MenuItemProps {
   description: string;
   price: number;
   images: string[];
-  category: 'main' | 'side' | 'drink';
+  category: string;
 }
 
 const MenuItem: React.FC<MenuItemProps> = ({ 
@@ -18,12 +18,14 @@ const MenuItem: React.FC<MenuItemProps> = ({
   description, 
   price, 
   images, 
+  category,
 }) => {
   const { addItem } = useCart();
 
   const handleAddToCart = () => {
     addItem({
       id,
+      category,
       name,
       price,
       image: images[0] || '',
