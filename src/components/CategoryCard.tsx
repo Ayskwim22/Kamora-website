@@ -5,7 +5,6 @@ interface CategoryCardProps {
   title: string;
   description: string;
   image: string;
-  badge: string;
   onExplore: () => void;
   index: number;
 }
@@ -15,7 +14,6 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
   title,
   description,
   image,
-  badge,
   onExplore,
   index,
 }) => {
@@ -109,13 +107,6 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
           </button>
         </div>
 
-        {/* Badge at Bottom */}
-        <div className="px-6 pb-6">
-          <div className="inline-flex items-center gap-2 bg-gray-900 rounded-full px-4 py-2">
-            <span className="text-yellow-400 text-sm">★</span>
-            <span className="text-xs font-bold text-white tracking-wide">{badge}</span>
-          </div>
-        </div>
       </div>
 
       <style>{`

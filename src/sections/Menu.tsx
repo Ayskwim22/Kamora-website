@@ -1,4 +1,4 @@
-zimport React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useCart } from '../contexts/CartContext';
 import Button from '../components/Button';
 import CategoryCard from '../components/CategoryCard';
@@ -333,7 +333,6 @@ const Menu: React.FC = () => {
                 title={category.label}
                 description={category.description}
                 image={category.image}
-                badge={category.badge}
                 onExplore={() => showCategoryView(category.key)}
                 index={index}
               />
@@ -361,11 +360,11 @@ const Menu: React.FC = () => {
                   className="group flex flex-col w-full max-w-[380px] sm:w-[calc(50%-0.75rem)] xl:w-[calc(33.333%-1rem)] overflow-hidden rounded-[32px] border-2 border-transparent bg-white shadow-lg transition duration-300 hover:-translate-y-1 hover:border-kamora-orange/70 hover:shadow-2xl hover:ring-2 hover:ring-kamora-orange/20 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-kamora-orange/10 opacity-0"
                   style={{ animation: `slideInUp 0.55s ease-out forwards ${index * 0.06 + 0.1}s` }}
                 >
-                  <div className="relative h-52 overflow-hidden">
+                  <div className="relative h-64 overflow-hidden bg-gray-100 flex items-center justify-center">
                     <img
                       src={item.image}
                       alt={item.name}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      className="max-w-full max-h-full object-contain transition-transform duration-500 group-hover:scale-105"
                     />
                   </div>
                   <div className="flex flex-col flex-1 p-6">
