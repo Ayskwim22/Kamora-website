@@ -327,8 +327,8 @@ const Cart: React.FC = () => {
         <div className="bg-white rounded-3xl w-full max-w-xl overflow-hidden shadow-2xl">
           <div className="flex items-center justify-between p-5 border-b">
             <div>
-              <h3 className="text-xl font-bold text-kamora-dark">Customize Your Meal</h3>
-              <p className="text-sm text-white">Edit your selected meal before checkout.</p>
+              <h3 className="text-xl font-bold text-black">Customize Your Meal</h3>
+              <p className="text-black">Edit your selected meal before checkout.</p>
             </div>
             <button
               onClick={closeCustomizationModal}
@@ -343,12 +343,12 @@ const Cart: React.FC = () => {
 
           <div className="p-6 space-y-5">
             <div>
-              <p className="text-sm font-semibold text-white">Item</p>
-              <p className="text-lg font-bold text-kamora-dark">{customizingItem.name}</p>
+              <p className="text-sm font-semibold text-black">Item</p>
+              <p className="text-lg font-bold text-black">{customizingItem.name}</p>
             </div>
 
             <div className="space-y-3">
-              <p className="text-sm font-semibold text-white">Include Add-ons</p>
+              <p className="text-sm font-semibold text-black">Include Add-ons</p>
               {cartCustomizationOptions.length > 0 ? (
                 <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                   {cartCustomizationOptions.map((option) => {
@@ -357,8 +357,8 @@ const Cart: React.FC = () => {
                       <div key={option.value} className="rounded-2xl border border-gray-200 bg-white p-4">
                         <div className="flex items-start justify-between gap-3">
                           <div>
-                            <p className="font-semibold text-kamora-dark">{option.label}</p>
-                            <p className="text-sm text-kamora-orange">+₱{option.price}</p>
+                            <p className="font-semibold text-black">{option.label}</p>
+                            <p className="text-sm text-black">+₱{option.price}</p>
                           </div>
                           <div className="flex items-center gap-2 rounded-full border border-gray-200 bg-gray-50 px-3 py-2">
                             <button
@@ -367,7 +367,7 @@ const Cart: React.FC = () => {
                                 ...prev,
                                 [option.value]: Math.max(0, qty - 1),
                               }))}
-                              className="w-8 h-8 rounded-full bg-white text-kamora-dark shadow-sm hover:bg-gray-100"
+                              className="w-8 h-8 rounded-full bg-white text-black shadow-sm hover:bg-gray-100"
                             >
                               −
                             </button>
@@ -378,7 +378,7 @@ const Cart: React.FC = () => {
                                 ...prev,
                                 [option.value]: qty + 1,
                               }))}
-                              className="w-8 h-8 rounded-full bg-white text-kamora-dark shadow-sm hover:bg-gray-100"
+                              className="w-8 h-8 rounded-full bg-white text-black shadow-sm hover:bg-gray-100"
                             >
                               +
                             </button>
@@ -389,20 +389,20 @@ const Cart: React.FC = () => {
                   })}
                 </div>
               ) : (
-                <p className="text-sm text-white">No add-ons available for this item.</p>
+                <p className="text-sm text-black">No add-ons available for this item.</p>
               )}
             </div>
 
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <div>
-                <p className="text-sm text-white">Customization fee</p>
-                <p className="text-lg font-bold text-kamora-orange">+₱{customizationFee.toFixed(2)}</p>
+                <p className="text-sm text-black">Customization fee</p>
+                <p className="text-lg font-bold text-black">+₱{customizationFee.toFixed(2)}</p>
               </div>
               <div className="flex gap-3 flex-wrap">
                 <Button
                   onClick={closeCustomizationModal}
                   variant="secondary"
-                  className="px-5 py-3 !bg-red-500 !text-white !border-red-500 hover:!bg-red-600 hover:!border-red-600"
+                  className="px-5 py-3 !bg-red-500 !text-black !border-red-500 hover:!bg-red-600 hover:!border-red-600"
                 >
                   Cancel
                 </Button>
@@ -424,7 +424,7 @@ const Cart: React.FC = () => {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex min-h-screen items-center justify-center z-50 p-4 pt-20">
           <div id="receipt-modal-content" className="bg-white rounded-2xl max-w-2xl w-full max-h-[calc(100vh-8rem)] overflow-y-auto shadow-2xl">
             {/* Receipt Header */}
-            <div className="bg-gradient-to-r from-kamora-orange to-kamora-red text-white p-6 rounded-t-2xl">
+            <div className="bg-gradient-to-r from-kamora-orange to-kamora-red text-black p-6 rounded-t-2xl">
               <div className="flex justify-between items-start">
                 <div>
                   <h2 className="text-2xl font-bold mb-2">Kamora Order Receipt</h2>
@@ -432,7 +432,7 @@ const Cart: React.FC = () => {
                 </div>
                 <button
                   onClick={() => setShowReceipt(false)}
-                  className="text-white hover:text-orange-200"
+                  className="text-black hover:text-orange-200"
                 >
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -447,27 +447,27 @@ const Cart: React.FC = () => {
               <div className="bg-gray-50 rounded-lg p-4 mb-6">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <p className="text-sm text-white">Order Number</p>
+                    <p className="text-sm text-black">Order Number</p>
                     <p className="font-semibold">{orderDetails.orderNumber}</p>
                   </div>
                   <div>
-                    <p className="text-sm text-white">Order Date</p>
+                    <p className="text-sm text-black">Order Date</p>
                     <p className="font-semibold">{orderDetails.orderDate}</p>
                   </div>
                   <div>
-                    <p className="text-sm text-white">Customer Name</p>
+                    <p className="text-sm text-black">Customer Name</p>
                     <p className="font-semibold">{orderDetails.customerName}</p>
                   </div>
                   <div>
-                    <p className="text-sm text-white">Phone Number</p>
+                    <p className="text-sm text-black">Phone Number</p>
                     <p className="font-semibold">{orderDetails.phoneNumber}</p>
                   </div>
                   <div>
-                    <p className="text-sm text-white">Pickup Date</p>
+                    <p className="text-sm text-black">Pickup Date</p>
                     <p className="font-semibold">{orderDetails.pickupDate}</p>
                   </div>
                   <div>
-                    <p className="text-sm text-white">Payment Method</p>
+                    <p className="text-sm text-black">Payment Method</p>
                     <p><strong>Payment Method:</strong> ${orderDetails.paymentMethod === 'gcash' ? 'GCash' : 'GCash'}</p>
                   </div>
                 </div>
@@ -490,19 +490,19 @@ const Cart: React.FC = () => {
                             />
                             <div>
                               <p className="font-medium">{item.name}</p>
-                              <p className="text-sm text-white">Qty: {item.quantity} × {item.displayPrice || `₱${item.price.toFixed(2)}`}</p>
+                              <p className="text-sm text-black">Qty: {item.quantity} × {item.displayPrice || `₱${item.price.toFixed(2)}`}</p>
                             </div>
                           </div>
                           <p className="font-semibold text-lg">₱${itemSubtotal}</p>
                         </div>
                         {item.customization && (
-                          <p className="text-sm text-white">
-                            <span className="font-semibold text-white">Special instructions:</span> {item.customization}
+                          <p className="text-sm text-black">
+                            <span className="font-semibold text-black">Special instructions:</span> {item.customization}
                           </p>
                         )}
                         {item.extraPrice ? (
-                          <p className="text-sm text-white">
-                            <span className="font-semibold text-white">Customization fee:</span> +₱{item.extraPrice.toFixed(2)} each
+                          <p className="text-sm text-black">
+                            <span className="font-semibold text-black">Customization fee:</span> +₱{item.extraPrice.toFixed(2)} each
                           </p>
                         ) : null}
                       </div>
@@ -515,8 +515,8 @@ const Cart: React.FC = () => {
               <div className="border-t pt-4 mb-6">
                 <div className="flex justify-between items-center">
                   <span className="text-lg font-semibold">Total Amount:</span>
-                  <span className="text-2xl font-bold text-kamora-orange">
-                    ${orderDetails.total.toFixed(2)}
+                  <span className="text-2xl font-bold text-black">
+                    ₱${orderDetails.total.toFixed(2)}
                   </span>
                 </div>
               </div>
@@ -540,7 +540,7 @@ const Cart: React.FC = () => {
               </div>
               
               {/* Footer */}
-              <div className="text-center mt-6 text-sm text-white">
+              <div className="text-center mt-6 text-sm text-black">
                 <p>For inquiries, contact us at support@kamora.com</p>
                 <p>Thank you for choosing Kamora!</p>
               </div>
@@ -554,8 +554,8 @@ const Cart: React.FC = () => {
   if (cart.items.length === 0) {
     return (
       <div className="bg-white rounded-lg shadow-lg p-6">
-        <h3 className="text-xl font-bold text-kamora-dark mb-4">Your Cart</h3>
-        <p className="text-white text-center py-8">Your cart is empty</p>
+        <h3 className="text-xl font-bold text-black mb-4">Your Cart</h3>
+        <p className="text-black text-center py-8">Your cart is empty</p>
       </div>
     );
   }
@@ -563,11 +563,11 @@ const Cart: React.FC = () => {
   return (
     <div className="bg-white rounded-3xl shadow-lg p-4 overflow-hidden max-h-full min-h-0">
       <div className="flex flex-col gap-4 md:flex-row md:justify-between md:items-center mb-5">
-        <h3 className="text-lg md:text-xl font-bold text-kamora-dark">Your Cart</h3>
+        <h3 className="text-lg md:text-xl font-bold text-black">Your Cart</h3>
         <Button
           onClick={clearCart}
           variant="secondary"
-          className="text-sm py-2 px-4 bg-red-500 hover:bg-red-600 text-white border-red-500 hover:border-red-600"
+          className="text-sm py-2 px-4 bg-red-500 hover:bg-red-600 text-black border-red-500 hover:border-red-600"
         >
           Clear Cart
         </Button>
@@ -583,26 +583,26 @@ const Cart: React.FC = () => {
                 className="w-16 h-16 object-cover rounded"
               />
               <div className="flex-1 min-w-0">
-                <h4 className="font-semibold text-kamora-dark break-words whitespace-normal">{item.name}</h4>
+                <h4 className="font-semibold text-black break-words whitespace-normal">{item.name}</h4>
                 {(() => {
                   const unitPrice = item.price + (item.extraPrice ?? 0);
                   return (
                     <>
-                      <p className="text-kamora-orange font-bold">₱{unitPrice.toFixed(2)}</p>
-                      <p className="text-sm text-white mt-1">Qty: {item.quantity} × ₱{unitPrice.toFixed(2)}</p>
+                      <p className="text-black font-bold">₱{unitPrice.toFixed(2)}</p>
+                      <p className="text-sm text-black mt-1">Qty: {item.quantity} × ₱{unitPrice.toFixed(2)}</p>
                       {item.displayPrice && item.displayPrice !== `₱${item.price.toFixed(2)}` && (
-                        <p className="text-xs text-white">Label: {item.displayPrice}</p>
+                        <p className="text-xs text-black">Label: {item.displayPrice}</p>
                       )}
                     </>
                   );
                 })()}
                 {item.customization && (
-                  <p className="text-sm text-white mt-1">Customization: {item.customization}</p>
+                  <p className="text-sm text-black mt-1">Customization: {item.customization}</p>
                 )}
                 {item.extraPrice ? (
-                  <p className="text-sm text-white mt-1">Customization fee: +₱{item.extraPrice.toFixed(2)} each</p>
+                  <p className="text-sm text-black mt-1">Customization fee: +₱{item.extraPrice.toFixed(2)} each</p>
                 ) : (
-                  <p className="text-sm text-white mt-1">No extra custom fees</p>
+                  <p className="text-sm text-black mt-1">No extra custom fees</p>
                 )}
               </div>
               <div className="flex flex-col w-full sm:w-auto gap-3">
@@ -653,7 +653,7 @@ const Cart: React.FC = () => {
               <span className="text-base font-semibold text-kamora-dark">Total</span>
               <span className="text-xl font-bold text-kamora-orange">₱${cart.total.toFixed(2)}</span>
             </div>
-            <p className="text-xs text-white mt-2">Review your order details and proceed to checkout when you're ready.</p>
+            <p className="text-xs text-black mt-2">Review your order details and proceed to checkout when you're ready.</p>
           </div>
 
           <div className="space-y-2">
@@ -716,7 +716,7 @@ const Cart: React.FC = () => {
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-kamora-orange"
                 style={{ colorScheme: 'light' }}
               />
-              <p className="text-white text-xs mt-1">Select a date within 1 week from today (Sunday is not available)</p>
+              <p className="text-black text-xs mt-1">Select a date within 1 week from today (Sunday is not available)</p>
             </div>
 
             <div className="bg-white rounded-2xl p-3">
@@ -735,7 +735,7 @@ const Cart: React.FC = () => {
                   </option>
                 ))}
               </select>
-              <p className="text-white text-sm mt-1">Select a 1-hour time slot between 8:00 AM and 8:00 PM</p>
+              <p className="text-black text-sm mt-1">Select a 1-hour time slot between 8:00 AM and 8:00 PM</p>
             </div>
 
             <div className="bg-white rounded-2xl p-3">
@@ -766,8 +766,8 @@ const Cart: React.FC = () => {
                     onClick={() => setPickupOption('store')}
                     className={`flex-1 px-4 py-3 rounded-lg font-medium transition-colors ${
                       pickupOption === 'store'
-                        ? 'bg-kamora-orange text-white'
-                        : 'bg-gray-100 text-white hover:bg-gray-200'
+                        ? 'bg-kamora-orange text-black'
+                        : 'bg-gray-100 text-black hover:bg-gray-200'
                     }`}
                   >
                     🏪 Pick-up at Store
@@ -776,8 +776,8 @@ const Cart: React.FC = () => {
                     onClick={() => setPickupOption('rider')}
                     className={`flex-1 px-4 py-3 rounded-lg font-medium transition-colors ${
                       pickupOption === 'rider'
-                        ? 'bg-kamora-orange text-white'
-                        : 'bg-gray-100 text-white hover:bg-gray-200'
+                        ? 'bg-kamora-orange text-black'
+                        : 'bg-gray-100 text-black hover:bg-gray-200'
                     }`}
                   >
                     🛵 Book Your Rider

@@ -288,6 +288,12 @@ const Menu: React.FC = () => {
   const addonTotalPrice = mealAddonTotal + drinkAddonPrice;
   const totalAddonFee = addonTotalPrice;
 
+  // Calculate total price for current order
+  const basePrice = selectedSize === 'Combo' ? comboDisplayPrice : 
+                   isDrinkItem ? drinkItemPrice : 
+                   customizingItem?.price ?? 0;
+  const totalPrice = basePrice + totalAddonFee;
+
   const isComboRequirementsMet = selectedSize === 'Combo' ? selectedSoup && selectedDrink : true;
   const canAddToCart = isComboRequirementsMet;
 
@@ -303,7 +309,7 @@ const Menu: React.FC = () => {
                 ✓
               </div>
               <div className="min-w-0 flex-1">
-                <p className="text-sm font-semibold text-kamora-dark">Added to cart</p>
+                <p className="text-sm font-semibold text-black">Added to cart</p>
                 <p className="mt-1 text-sm text-white break-words">{notificationMessage}</p>
               </div>
               <button
@@ -318,8 +324,8 @@ const Menu: React.FC = () => {
           </div>
         )}
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-heading font-bold text-kamora-dark mb-3">Our Menu</h2>
-          <p className="text-lg text-white max-w-2xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-heading font-bold text-black mb-3">Our Menu</h2>
+          <p className="text-lg text-black max-w-2xl mx-auto">
             Explore our categories with cards, then open a dedicated page for each collection of menu items.
           </p>
         </div>
@@ -343,8 +349,8 @@ const Menu: React.FC = () => {
             <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
               <div className="max-w-3xl">
                 <p className="text-sm uppercase tracking-[0.4em] text-kamora-orange font-semibold">{activeCategoryData?.label}</p>
-                <h3 className="mt-4 text-4xl md:text-5xl font-heading font-bold text-kamora-dark">{activeCategoryData?.label}</h3>
-                <p className="mt-4 text-lg text-white">{activeCategoryData?.description}</p>
+                <h3 className="mt-4 text-4xl md:text-5xl font-heading font-bold text-black">{activeCategoryData?.label}</h3>
+                <p className="mt-4 text-lg text-black">{activeCategoryData?.description}</p>
               </div>
               <div className="flex flex-wrap items-center gap-3">
                 <Button variant="secondary" onClick={clearCategoryView} className="px-5 py-3">
@@ -369,8 +375,8 @@ const Menu: React.FC = () => {
                   </div>
                   <div className="flex flex-col flex-1 p-6">
                     <div className="mb-4">
-                      <h4 className="text-xl font-heading font-bold text-kamora-dark">{item.name}</h4>
-                      <p className="mt-2 text-sm text-white">A delicious option from our {activeCategoryData?.label.toLowerCase()} menu.</p>
+                      <h4 className="text-xl font-heading font-bold text-black">{item.name}</h4>
+                      <p className="mt-2 text-sm text-black">A delicious option from our {activeCategoryData?.label.toLowerCase()} menu.</p>
                     </div>
                     <div className="mt-auto flex flex-col gap-4">
                       <p className="text-xl font-bold text-kamora-orange">{item.priceLabel}</p>
@@ -387,14 +393,14 @@ const Menu: React.FC = () => {
       </div>
 
       {customizingItem && (
-        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm p-4 flex items-center justify-center overflow-y-auto" onClick={closeCustomization}>
+        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm p-2 sm:p-4 flex items-center justify-center overflow-y-auto" onClick={closeCustomization}>
           <div
-            className="relative w-full max-w-4xl rounded-[32px] bg-white shadow-2xl overflow-hidden max-h-[calc(100vh-4rem)]"
+            className="relative w-full max-w-4xl mx-2 sm:mx-4 rounded-[16px] sm:rounded-[32px] bg-white shadow-2xl overflow-hidden max-h-[calc(100vh-2rem)] sm:max-h-[calc(100vh-4rem)]"
             onClick={(event) => event.stopPropagation()}
           >
-            <div className="flex items-center justify-between p-6 border-b">
+            <div className="flex items-center justify-between p-3 sm:p-6 border-b">
               <div>
-                <h3 className="text-2xl font-bold text-kamora-dark">Customize your Order</h3>
+                <h3 className="text-lg sm:text-2xl font-bold text-black">Customize your Order</h3>
               </div>
               <button
                 type="button"
@@ -408,15 +414,15 @@ const Menu: React.FC = () => {
               </button>
             </div>
 
-            <div className="flex flex-col md:flex-row overflow-y-auto max-h-[calc(100vh-10rem)]">
+            <div className="flex flex-col lg:flex-row overflow-y-auto max-h-[calc(100vh-8rem)] sm:max-h-[calc(100vh-10rem)]">
               {/* Product Image Section */}
-              <div className="md:w-1/3 p-6 flex flex-col items-center justify-center bg-gray-50 border-r">
+              <div className="lg:w-1/3 p-3 sm:p-6 flex flex-col items-center justify-center bg-gray-50 lg:border-r">
                 <img
                   src={selectedSize === 'Combo' ? 'https://via.placeholder.com/300x300/f5f5f5/999999?text=Combo+Meal' : customizingItem.image}
                   alt={selectedSize === 'Combo' ? 'Combo Meal' : customizingItem.name}
-                  className="w-full max-w-xs h-auto object-cover rounded-2xl mb-4"
+                  className="w-full max-w-[120px] sm:max-w-[150px] h-24 sm:h-32 object-cover rounded-lg sm:rounded-xl mb-2 sm:mb-3"
                 />
-                <h4 className="text-lg font-bold text-kamora-dark text-center">
+                <h4 className="text-sm sm:text-lg font-bold text-black text-center">
                   {customizingItem.name}{isMealItem ? ` - ${selectedSize}` : ''}
                 </h4>
                 {isDrinkItem ? (
@@ -430,9 +436,9 @@ const Menu: React.FC = () => {
                 ) : null}
               </div>
 
-              <div className="md:w-2/3 p-6 space-y-6">
+              <div className="lg:w-2/3 p-3 sm:p-6 space-y-4 sm:space-y-6">
                 <div>
-                  <p className="text-sm font-semibold text-white mb-3">Customize your order</p>
+                  <p className="text-sm font-semibold text-black mb-3">Customize your order</p>
                   {isMealItem && (
                     <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
                       {['Combo', 'Solo'].map((size) => (
@@ -449,8 +455,8 @@ const Menu: React.FC = () => {
                           }}
                           className={`rounded-2xl border px-4 py-3 text-center transition font-semibold ${
                             selectedSize === size
-                              ? 'border-kamora-orange bg-kamora-orange/10 text-kamora-dark'
-                              : 'border-gray-300 bg-white text-white hover:border-kamora-orange'
+                              ? 'border-kamora-orange bg-kamora-orange/10 text-black'
+                              : 'border-gray-300 bg-white text-black hover:border-kamora-orange'
                           }`}
                         >
                           {size}
@@ -464,7 +470,7 @@ const Menu: React.FC = () => {
                   <>
                     {isDrinkItem ? (
                       <div>
-                        <p className="text-sm font-semibold text-white mb-3">Choose your size</p>
+                        <p className="text-sm font-semibold text-black mb-3">Choose your size</p>
                         <div className="grid grid-cols-2 gap-3">
                           {[
                             { size: 'Regular', price: 19, label: '₱19.00' },
@@ -476,8 +482,8 @@ const Menu: React.FC = () => {
                               onClick={() => setSelectedDrinkSize(option.size as 'Regular' | 'Large')}
                               className={`rounded-2xl border px-4 py-4 text-center transition ${
                                 selectedDrinkSize === option.size
-                                  ? 'border-kamora-orange bg-kamora-orange/10 text-kamora-dark'
-                                  : 'border-gray-300 bg-white text-white hover:border-kamora-orange'
+                                  ? 'border-kamora-orange bg-kamora-orange/10 text-black'
+                                  : 'border-gray-300 bg-white text-black hover:border-kamora-orange'
                               }`}
                             >
                               <span className="font-semibold block">{option.size}</span>
@@ -490,7 +496,7 @@ const Menu: React.FC = () => {
                       <>
                         {selectedSize === 'Combo' && (
                           <div>
-                            <p className="text-sm font-semibold text-white mb-3">Choose your soup</p>
+                            <p className="text-sm font-semibold text-black mb-3">Choose your soup</p>
                             <div className="relative">
                               <div className="flex items-center gap-3">
                                 <button
@@ -527,7 +533,7 @@ const Menu: React.FC = () => {
                                           />
                                         </div>
                                         <div className="p-2 text-center">
-                                          <span className="font-semibold text-xs text-kamora-dark block">{soup.name}</span>
+                                          <span className="font-semibold text-xs text-black block">{soup.name}</span>
                                         </div>
                                       </button>
                                     ))}
@@ -547,7 +553,7 @@ const Menu: React.FC = () => {
                         )}
 
                         <div>
-                          <p className="text-sm font-semibold text-white mb-3">Choose your drink</p>
+                          <p className="text-sm font-semibold text-black mb-3">Choose your drink</p>
                           <div className="relative">
                             <div className="flex items-center gap-3">
                               <button
@@ -584,7 +590,7 @@ const Menu: React.FC = () => {
                                         />
                                       </div>
                                       <div className="p-2 text-center">
-                                        <span className="font-semibold text-xs text-kamora-dark block">{drink.name}</span>
+                                        <span className="font-semibold text-xs text-black block">{drink.name}</span>
                                       </div>
                                     </button>
                                   ))}
@@ -603,7 +609,7 @@ const Menu: React.FC = () => {
 
                           {selectedDrink && (
                             <div className="mt-4">
-                              <p className="text-sm font-semibold text-white mb-3">Choose your drink size</p>
+                              <p className="text-sm font-semibold text-black mb-3">Choose your drink size</p>
                               <div className="grid grid-cols-2 gap-3">
                                 {((customizingItem?.category === 'burger' || customizingItem?.category === 'snacks' || customizingItem?.category === 'soup')
                                   ? [
@@ -621,8 +627,8 @@ const Menu: React.FC = () => {
                                     onClick={() => setSelectedDrinkSize(option.size as 'Regular' | 'Large')}
                                     className={`rounded-2xl border px-4 py-4 text-center transition ${
                                       selectedDrinkSize === option.size
-                                        ? 'border-kamora-orange bg-kamora-orange/10 text-kamora-dark'
-                                        : 'border-gray-300 bg-white text-white hover:border-kamora-orange'
+                                        ? 'border-kamora-orange bg-kamora-orange/10 text-black'
+                                        : 'border-gray-300 bg-white text-black hover:border-kamora-orange'
                                     }`}
                                   >
                                     <span className="font-semibold block">{option.size}</span>
@@ -640,7 +646,7 @@ const Menu: React.FC = () => {
 
                 {(isMealItem || isSnackItem || isSoupItem) && (
                   <div>
-                    <p className="text-sm font-semibold text-white mb-3">Include Add-ons</p>
+                    <p className="text-sm font-semibold text-black mb-3">Include Add-ons</p>
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                       {currentCustomizationOptions.map((option) => {
                         const qty = addonQuantities[option.value] || 0;
@@ -658,14 +664,14 @@ const Menu: React.FC = () => {
                             </div>
                             <div className="p-4 space-y-3">
                               <div>
-                                <p className="font-semibold text-sm text-kamora-dark">{option.label}</p>
+                                <p className="font-semibold text-sm text-black">{option.label}</p>
                                 <p className="text-sm text-kamora-orange font-medium">+₱{option.price}</p>
                               </div>
                               <div className="flex items-center justify-between rounded-full border border-gray-200 bg-gray-50 px-3 py-2">
                                 <button
                                   type="button"
                                   onClick={() => updateAddonQuantity(option.value, Math.max(0, qty - 1))}
-                                  className="h-8 w-8 rounded-full bg-white text-kamora-dark shadow-sm hover:bg-gray-100"
+                                  className="h-8 w-8 rounded-full bg-white text-black shadow-sm hover:bg-gray-100"
                                 >
                                   −
                                 </button>
@@ -673,7 +679,7 @@ const Menu: React.FC = () => {
                                 <button
                                   type="button"
                                   onClick={() => updateAddonQuantity(option.value, qty + 1)}
-                                  className="h-8 w-8 rounded-full bg-white text-kamora-dark shadow-sm hover:bg-gray-100"
+                                  className="h-8 w-8 rounded-full bg-white text-black shadow-sm hover:bg-gray-100"
                                 >
                                   +
                                 </button>
@@ -688,9 +694,15 @@ const Menu: React.FC = () => {
 
                 {/* Footer */}
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-t pt-6">
-                  <div>
-                    <p className="text-sm text-white">Add-ons fee</p>
-                    <p className="text-lg font-bold text-kamora-orange">+₱{totalAddonFee.toFixed(2)}</p>
+                  <div className="space-y-3">
+                    <div>
+                      <p className="text-sm text-black">Add-ons fee</p>
+                      <p className="text-lg font-bold text-kamora-orange">+₱{totalAddonFee.toFixed(2)}</p>
+                    </div>
+                    <div className="border-t pt-3">
+                      <p className="text-sm font-semibold text-black">Total Price</p>
+                      <p className="text-xl font-bold text-kamora-orange">₱{totalPrice.toFixed(2)}</p>
+                    </div>
                   </div>
                   <div className="flex flex-col gap-2">
                     {selectedSize === 'Combo' && !selectedSoup && (
@@ -703,7 +715,7 @@ const Menu: React.FC = () => {
                       <Button
                         onClick={closeCustomization}
                         variant="secondary"
-                        className="px-5 py-3 !bg-red-500 !text-white !border-red-500 hover:!bg-red-600 hover:!border-red-600"
+                        className="px-5 py-3 !bg-red-500 !text-black !border-red-500 hover:!bg-red-600 hover:!border-red-600"
                       >
                         Cancel
                       </Button>
