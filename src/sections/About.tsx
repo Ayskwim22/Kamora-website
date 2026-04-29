@@ -6,6 +6,7 @@ import canlasImg from '../../assets/canlas.png';
 import comediaImg from '../../assets/comedia.png';
 import danoImg from '../../assets/dano.png';
 import diestaImg from '../../assets/diesta.png';
+import interiorImg from '../../assets/Interior.png';
 import ortegaImg from '../../assets/ortega.png';
 import pauleImg from '../../assets/paule.png';
 import reynaldaImg from '../../assets/reynalda.png';
@@ -30,8 +31,7 @@ const About: React.FC = () => {
         id="about"
         className="relative overflow-hidden bg-cover bg-center text-white"
         style={{
-          backgroundImage:
-            "url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1600&q=80')",
+          backgroundImage: `url(${interiorImg})`,
         }}
       >
         <div className="absolute inset-0 bg-black/65" />
@@ -41,7 +41,7 @@ const About: React.FC = () => {
               About Kamora
             </p>
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-heading font-bold leading-tight md:leading-tight text-white mb-6">
-              A dining experience shaped by warm hospitality, vibrant flavors, and thoughtful Filipino-inspired recipes.
+              A dining experience shaped by warm hospitality, vibrant flavors, and thoughtful inspired recipes.
             </h1>
             <p className="mx-auto max-w-3xl text-base sm:text-lg text-white/80 leading-relaxed">
               Kamora blends carefully selected ingredients, friendly service, and a welcoming atmosphere so every visit feels special.
