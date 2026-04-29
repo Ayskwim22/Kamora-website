@@ -197,10 +197,10 @@ const Menu: React.FC = () => {
         // For Combo: use the full combo price, not Solo price + difference
         cartItemPrice = comboDisplayPrice;
         displayPrice = `₱${comboDisplayPrice.toFixed(2)}`;
-        // Add only drink price if selected, not the combo soup price difference
+        // Add only extra drink surcharge for combo meals: regular drink is included, large is +₱10
         if (selectedDrink) {
           customizationText += ` - Drink: ${selectedDrink} (${selectedDrinkSize})`;
-          totalExtraPrice += drinkAddonPrice;
+          totalExtraPrice += selectedDrinkSize === 'Large' ? 10 : 0;
         }
       }
     } else if (!isDrinkItem && (customizingItem.category === 'burger' || customizingItem.category === 'snacks' || customizingItem.category === 'soup') && selectedDrink) {
@@ -270,12 +270,18 @@ const Menu: React.FC = () => {
   );
   const drinkItemPrice = isDrinkItem ? (selectedDrinkSize === 'Large' ? 29 : 19) : customizingItem?.price ?? 0;
   const drinkAddonPrice = selectedDrink
-    ? (customizingItem?.category === 'burger' || customizingItem?.category === 'snacks' || customizingItem?.category === 'soup')
+    ? selectedSize === 'Combo' && isMealItem
+      ? selectedDrinkSize === 'Large'
+        ? 10
+        : 0
+      : isDrinkItem
+      ? selectedDrinkSize === 'Large'
+        ? 10
+        : 0
+      : (customizingItem?.category === 'burger' || customizingItem?.category === 'snacks' || customizingItem?.category === 'soup')
       ? selectedDrinkSize === 'Large'
         ? 29
         : 19
-      : selectedDrinkSize === 'Large'
-      ? 10
       : 0
     : 0;
   const addonTotalPrice = mealAddonTotal + drinkAddonPrice;
