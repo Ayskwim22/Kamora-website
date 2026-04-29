@@ -62,9 +62,12 @@ const MenuItem: React.FC<MenuItemProps> = ({
           <Button 
             onClick={handleAddToCart}
             variant="primary"
-            className="px-6 py-2"
+            className="px-6 py-2 relative overflow-hidden group transition-transform duration-300 hover:scale-[1.03] bg-gradient-to-r from-[#ff7a6a] via-[#ff6b35] to-[#ff5a48] hover:brightness-110 shadow-lg hover:shadow-2xl"
           >
-            ORDER NOW
+            <span className="flex items-center justify-center gap-2 transition-all duration-300 group-hover:tracking-[0.04em]">
+              ADD TO ORDER
+              <span className="transform transition-transform duration-300 group-hover:translate-x-1">→</span>
+            </span>
           </Button>
         </div>
       </div>

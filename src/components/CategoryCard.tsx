@@ -78,12 +78,12 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
             className="w-full py-4 px-6 rounded-2xl font-bold text-white text-lg transition-all duration-400 ease-out relative overflow-hidden"
             style={{
               background: isHovered
-                ? 'linear-gradient(135deg, #ff6b5b 0%, #ff5a48 100%)'
-                : 'linear-gradient(135deg, #ff7a6a 0%, #ff6857 100%)',
+                ? 'linear-gradient(135deg, #ff6b35 0%, #ff5a48 100%)'
+                : 'linear-gradient(135deg, #ff7a6a 0%, #ff6b35 55%, #ff5a48 100%)',
               transform: isHovered ? 'scale(1.05)' : 'scale(1)',
               boxShadow: isHovered
-                ? '0 12px 24px rgba(255, 107, 91, 0.4), inset 0 -2px 4px rgba(0,0,0,0.1)'
-                : '0 6px 16px rgba(255, 107, 91, 0.25)',
+                ? '0 14px 28px rgba(255, 107, 91, 0.35), inset 0 -2px 4px rgba(0,0,0,0.1)'
+                : '0 8px 20px rgba(255, 107, 91, 0.25)',
             }}
           >
             <span className="relative z-10 flex items-center justify-center gap-2">
