@@ -12,12 +12,15 @@
   body {
     font-family: 'Comfortaa', 'Inter', system-ui, sans-serif;
     font-weight: 400;
+    background-color: #FFF0E1;
+    color: #341A0C;
   }
 
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Oswald', 'Inter', system-ui, sans-serif;
     font-weight: 600;
     letter-spacing: 0.5px;
+    color: #341A0C;
   }
 
   /* Hide scrollbar for horizontal scroll */

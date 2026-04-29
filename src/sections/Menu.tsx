@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useCart } from '../contexts/CartContext';
 import Button from '../components/Button';
+import CategoryCard from '../components/CategoryCard';
 import burgerWithCheeseImg from '../../assets/burgerwcheese.png';
 import burgerDeluxeImg from '../../assets/burgerdeluxe.png';
 import extraGravyImg from '../../assets/extragravy.png';
@@ -34,12 +35,12 @@ interface MenuItem {
   image: string;
 }
 
-const categories: { key: CategoryKey; label: string; icon: string; description: string; image: string }[] = [
-  { key: 'meal', label: 'Meals', icon: '🍽️', description: 'Fresh hot meals served with savory sides.', image: mealOriginalImg },
-  { key: 'burger', label: 'Burger', icon: '🍔', description: 'Juicy burgers with premium toppings.', image: burgerWithCheeseImg },
-  { key: 'snacks', label: 'Snacks', icon: '🍟', description: 'Crispy snacks made for sharing.', image: bitesOriginal },
-  { key: 'soup', label: 'Soup', icon: '🍲', description: 'Warm soups made to comfort and delight.', image: mushroomSoupImg },
-  { key: 'drinks', label: 'Drinks', icon: '🥤', description: 'Refreshing beverages to complete every meal.', image: iceTeaImg },
+const categories: { key: CategoryKey; label: string; icon: string; description: string; image: string; badge: string }[] = [
+  { key: 'meal', label: 'Meals', icon: '🍽️', description: 'Fresh hot meals served with savory sides.', image: mealOriginalImg, badge: 'BESTSELLER' },
+  { key: 'burger', label: 'Burger', icon: '🍔', description: 'Juicy burgers with premium toppings.', image: burgerWithCheeseImg, badge: 'CROWD FAVORITE' },
+  { key: 'snacks', label: 'Snacks', icon: '🍟', description: 'Crispy snacks made for sharing.', image: bitesOriginal, badge: 'MOST INSTAGRAMMED' },
+  { key: 'soup', label: 'Soup', icon: '🍲', description: 'Warm soups made to comfort and delight.', image: mushroomSoupImg, badge: 'CUSTOMER CHOICE' },
+  { key: 'drinks', label: 'Drinks', icon: '🥤', description: 'Refreshing beverages to complete every meal.', image: iceTeaImg, badge: 'PERFECT PAIRING' },
 ];
 
 
@@ -324,48 +325,19 @@ const Menu: React.FC = () => {
         </div>
 
         {!activeCategory ? (
-          <div className="flex flex-wrap justify-center gap-6">
-            {categories.map((category, index) => {
-              const categoryItems = getCategoryItems(category.key);
-              return (
-                <div
-                  key={category.key}
-                  className="group cursor-pointer w-full max-w-[380px] sm:w-[calc(50%-0.75rem)] xl:w-[calc(33.333%-1rem)] rounded-[32px] overflow-hidden border-2 border-transparent bg-white shadow-lg transition duration-300 hover:-translate-y-1 hover:border-kamora-orange/70 hover:shadow-2xl hover:ring-2 hover:ring-kamora-orange/20 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-kamora-orange/10 opacity-0"
-                  style={{ animation: `fadeInScale 0.55s ease-out forwards ${index * 0.08}s` }}
-                  onClick={() => showCategoryView(category.key)}
-                >
-                  <div className="relative h-56 overflow-hidden">
-                    <img
-                      src={category.image}
-                      alt={category.label}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
-                    <div className="absolute left-6 bottom-6 right-6">
-                      <p className="text-sm uppercase tracking-[0.4em] text-white/80 mb-2">{category.icon}</p>
-                      <h3 className="text-3xl font-heading font-bold text-white drop-shadow-lg">{category.label}</h3>
-                      <p className="mt-3 text-sm text-white/90 leading-relaxed">{category.description}</p>
-                    </div>
-                  </div>
-
-                  <div className="p-6">
-                    <div className="mb-4 text-sm text-gray-500">
-                      {categoryItems.length} items · click card to view all.
-                    </div>
-                    <Button
-                      onClick={(event: React.MouseEvent<HTMLButtonElement>) => {
-                        event.stopPropagation();
-                        showCategoryView(category.key);
-                      }}
-                      variant="primary"
-                      className="w-full"
-                    >
-                      Explore {category.label}
-                    </Button>
-                  </div>
-                </div>
-              );
-            })}
+          <div className="flex flex-wrap justify-center gap-8 lg:gap-6">
+            {categories.map((category, index) => (
+              <CategoryCard
+                key={category.key}
+                categoryNumber={index + 1}
+                title={category.label}
+                description={category.description}
+                image={category.image}
+                badge={category.badge}
+                onExplore={() => showCategoryView(category.key)}
+                index={index}
+              />
+            ))}
           </div>
         ) : (
           <div className="space-y-8">

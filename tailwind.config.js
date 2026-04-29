@@ -9,9 +9,9 @@ export default {
       colors: {
         'kamora-orange': '#FF6B35',
         'kamora-red': '#C73E1D',
-        'kamora-cream': '#FFF8E1',
-        'kamora-brown': '#8B4513',
-        'kamora-dark': '#2C1810',
+        'kamora-cream': '#FFF0E1',
+        'kamora-brown': '#A65D2A',
+        'kamora-dark': '#341A0C',
       },
        fontFamily: {
         'sans': ['Abraham', 'Inter', 'system-ui', 'sans-serif'],
