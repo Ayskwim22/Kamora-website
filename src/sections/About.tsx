@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import MemberCard from '../components/MemberCard';
 import albutraImg from '../../assets/albutra.png';
 import aspaImg from '../../assets/aspa.png';
@@ -12,6 +12,27 @@ import pauleImg from '../../assets/paule.png';
 import reynaldaImg from '../../assets/reynalda.png';
 import villanuevaImg from '../../assets/villanueva.png';
 const About: React.FC = () => {
+  const aboutRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (!aboutRef.current || typeof window === 'undefined') return;
+
+    const observer = new IntersectionObserver(
+      (entries, obs) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const target = entry.target as HTMLElement;
+            target.classList.add('reveal-visible');
+            obs.unobserve(target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    aboutRef.current.querySelectorAll<HTMLElement>('.reveal').forEach((element) => observer.observe(element));
+    return () => observer.disconnect();
+  }, []);
   const members = [
     { name: 'Kathleen Pearl Albutra', role: 'Partner', avatar: albutraImg },
     { name: 'Angela Jodi Aspa', role: 'Partner', avatar: aspaImg },
@@ -26,7 +47,7 @@ const About: React.FC = () => {
   ];
 
   return (
-    <div>
+    <div ref={aboutRef}>
       <section
         id="about"
         className="relative overflow-hidden bg-cover bg-center text-white"
@@ -35,7 +56,7 @@ const About: React.FC = () => {
         }}
       >
         <div className="absolute inset-0 bg-black/65" />
-        <div className="relative mx-auto max-w-7xl px-6 py-24 sm:px-8 md:px-12 lg:py-32 lg:px-16">
+        <div className="relative mx-auto max-w-7xl px-6 py-24 sm:px-8 md:px-12 lg:py-32 lg:px-16 reveal">
           <div className="max-w-4xl text-center mx-auto">
             <p className="text-sm uppercase tracking-[0.45em] text-orange-200/90 font-semibold mb-4">
               About Kamora
@@ -53,7 +74,7 @@ const About: React.FC = () => {
 
       <section className="bg-[#fbf6ed] py-16 sm:py-20">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-          <div className="grid gap-8 lg:grid-cols-2 items-center">
+          <div className="grid gap-8 lg:grid-cols-2 items-center reveal">
             <div className="space-y-6">
               <p className="text-sm uppercase tracking-[0.4em] text-kamora-orange font-semibold">
                 Mission & Vision
@@ -67,13 +88,13 @@ const About: React.FC = () => {
             </div>
 
             <div className="grid gap-6">
-              <div className="rounded-[32px] border border-gray-200 bg-white p-8 shadow-lg">
+              <div className="rounded-[32px] border border-gray-200 bg-white p-8 shadow-lg reveal">
                 <h3 className="text-2xl font-heading font-bold text-kamora-dark mb-3">Our Vision</h3>
                 <p className="text-gray-600 leading-relaxed">
                   To be recognized as a reliable food brand that provides affordable, modern and nutritious fillets made from kamote.
                 </p>
               </div>
-              <div className="rounded-[32px] border border-gray-200 bg-white p-8 shadow-lg">
+              <div className="rounded-[32px] border border-gray-200 bg-white p-8 shadow-lg reveal">
                 <h3 className="text-2xl font-heading font-bold text-kamora-dark mb-3">Our Mission</h3>
                 <p className="text-gray-600 leading-relaxed">
                    To provide safe, nutritious, and affordable plant-based fillet products made from locally sourced ingredients, helping consumers enjoy healthier meals without compromising taste or budget.
@@ -86,7 +107,7 @@ const About: React.FC = () => {
 
       <section className="bg-white py-16 sm:py-20">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-          <div className="text-center mb-12">
+          <div className="text-center mb-12 reveal">
             <p className="text-sm uppercase tracking-[0.4em] text-kamora-orange font-semibold mb-3">
               Partnership
             </p>
@@ -99,7 +120,7 @@ const About: React.FC = () => {
           </div>
 
           <div className="grid gap-6 md:grid-cols-3">
-            <div className="rounded-[32px] border border-gray-200 bg-[#faf4ea] p-8 text-center shadow-lg">
+            <div className="rounded-[32px] border border-gray-200 bg-[#faf4ea] p-8 text-center shadow-lg reveal">
               <p className="text-sm uppercase tracking-[0.35em] text-kamora-orange font-semibold mb-4">
                 Trusted Suppliers
               </p>
@@ -110,7 +131,7 @@ const About: React.FC = () => {
                 Partnering with local growers and producers to ensure the best quality in every dish.
               </p>
             </div>
-            <div className="rounded-[32px] border border-gray-200 bg-[#faf4ea] p-8 text-center shadow-lg">
+            <div className="rounded-[32px] border border-gray-200 bg-[#faf4ea] p-8 text-center shadow-lg reveal">
               <p className="text-sm uppercase tracking-[0.35em] text-kamora-orange font-semibold mb-4">
                 Community
               </p>
@@ -121,7 +142,7 @@ const About: React.FC = () => {
                 Building relationships with our neighborhood to bring people closer over food.
               </p>
             </div>
-            <div className="rounded-[32px] border border-gray-200 bg-[#faf4ea] p-8 text-center shadow-lg">
+            <div className="rounded-[32px] border border-gray-200 bg-[#faf4ea] p-8 text-center shadow-lg reveal">
               <p className="text-sm uppercase tracking-[0.35em] text-kamora-orange font-semibold mb-4">
                 Hospitality
               </p>
