@@ -289,14 +289,14 @@ const Cart: React.FC = () => {
           
           ctx.font = '14px Arial';
           orderDetails.items.forEach((item) => {
-            ctx.fillText(`${item.name} - Qty: ${item.quantity} × $${item.price.toFixed(2)} = $${(item.price * item.quantity).toFixed(2)}`, 50, yPos);
+            ctx.fillText(`${item.name} - Qty: ${item.quantity} × ₱${item.price.toFixed(2)} = ₱${(item.price * item.quantity).toFixed(2)}`, 50, yPos);
             yPos += 25;
           });
           
           yPos += 20;
           ctx.font = 'bold 20px Arial';
           ctx.fillStyle = '#f97316';
-          ctx.fillText(`Total: $${orderDetails.total.toFixed(2)}`, 50, yPos);
+          ctx.fillText(`Total: ₱${orderDetails.total.toFixed(2)}`, 50, yPos);
         }
         
         // Convert to image and download
@@ -493,7 +493,7 @@ const Cart: React.FC = () => {
                               <p className="text-sm text-gray-500">Qty: {item.quantity} × {item.displayPrice || `₱${item.price.toFixed(2)}`}</p>
                             </div>
                           </div>
-                          <p className="font-semibold text-lg">${itemSubtotal}</p>
+                          <p className="font-semibold text-lg">₱${itemSubtotal}</p>
                         </div>
                         {item.customization && (
                           <p className="text-sm text-gray-600">
@@ -651,7 +651,7 @@ const Cart: React.FC = () => {
           <div className="mb-3">
             <div className="flex flex-col gap-1">
               <span className="text-base font-semibold text-kamora-dark">Total</span>
-              <span className="text-xl font-bold text-kamora-orange">${cart.total.toFixed(2)}</span>
+              <span className="text-xl font-bold text-kamora-orange">₱${cart.total.toFixed(2)}</span>
             </div>
             <p className="text-xs text-gray-600 mt-2">Review your order details and proceed to checkout when you're ready.</p>
           </div>

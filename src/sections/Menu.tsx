@@ -168,6 +168,9 @@ const Menu: React.FC = () => {
     const isDrinkItem = customizingItem.category === 'drinks';
     let customizationText = isDrinkItem ? selectedDrinkSize : `${selectedSize}`;
     let totalExtraPrice = 0;
+    let cartItemPrice = customizingItem.price;
+    let displayPrice = customizingItem.priceLabel;
+
     const drinkAddonPrice = isDrinkItem
       ? selectedDrinkSize === 'Large'
         ? 10
@@ -177,6 +180,7 @@ const Menu: React.FC = () => {
         ? 29
         : 19
       : 0;
+    
     const addonLines: string[] = [];
 
     customizationOptions.forEach((option) => {
@@ -190,17 +194,22 @@ const Menu: React.FC = () => {
     if (selectedSize === 'Combo') {
       if (selectedSoup) {
         customizationText += ` - Soup: ${selectedSoup}`;
-        totalExtraPrice += comboDisplayPrice - customizingItem.price;
-      }
-      if (selectedDrink) {
-        customizationText += ` - Drink: ${selectedDrink} (${selectedDrinkSize})`;
-        totalExtraPrice += drinkAddonPrice;
+        // For Combo: use the full combo price, not Solo price + difference
+        cartItemPrice = comboDisplayPrice;
+        displayPrice = `₱${comboDisplayPrice.toFixed(2)}`;
+        // Add only drink price if selected, not the combo soup price difference
+        if (selectedDrink) {
+          customizationText += ` - Drink: ${selectedDrink} (${selectedDrinkSize})`;
+          totalExtraPrice += drinkAddonPrice;
+        }
       }
     } else if (!isDrinkItem && (customizingItem.category === 'burger' || customizingItem.category === 'snacks' || customizingItem.category === 'soup') && selectedDrink) {
       customizationText += ` - Drink: ${selectedDrink} (${selectedDrinkSize})`;
       totalExtraPrice += drinkAddonPrice;
     } else if (isDrinkItem) {
       customizationText = `${selectedDrinkSize}`;
+      cartItemPrice = selectedDrinkSize === 'Large' ? 29 : 19;
+      displayPrice = `₱${cartItemPrice.toFixed(2)}`;
       totalExtraPrice += drinkAddonPrice;
     }
 
@@ -210,14 +219,13 @@ const Menu: React.FC = () => {
 
     const sanitizedCustomization = customizationText.trim().replace(/[^a-zA-Z0-9\s-]/g, '').replace(/\s+/g, '-').toLowerCase();
     const cartItemId = customizingItem.id + (sanitizedCustomization ? `-${sanitizedCustomization}` : '');
-    const itemPrice = customizingItem.price;
 
     addItem({
       id: cartItemId,
       category: customizingItem.category,
       name: customizingItem.name,
-      price: itemPrice,
-      displayPrice: customizingItem.priceLabel,
+      price: cartItemPrice,
+      displayPrice: displayPrice,
       image: customizingItem.image,
       customization: customizationText || undefined,
       extraPrice: totalExtraPrice || undefined,
