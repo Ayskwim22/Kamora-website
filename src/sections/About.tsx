@@ -82,7 +82,7 @@ const About: React.FC = () => {
               <h2 className="text-3xl md:text-4xl font-heading font-bold text-kamora-dark">
                 We’re focused on delivering flavorful meals and meaningful connections.
               </h2>
-              <p className="text-lg text-gray-700 leading-relaxed max-w-3xl">
+              <p className="text-lg text-black700 leading-relaxed max-w-3xl">
                 From freshly prepared dishes to attentive service, Kamora is built for guests who appreciate honest food, thoughtful details, and a warm dining experience.
               </p>
             </div>
@@ -90,13 +90,13 @@ const About: React.FC = () => {
             <div className="grid gap-6">
               <div className="rounded-[32px] border border-gray-200 bg-white p-8 shadow-lg reveal">
                 <h3 className="text-2xl font-heading font-bold text-kamora-dark mb-3">Our Vision</h3>
-                <p className="text-gray-600 leading-relaxed">
+                <p className="text-black700 leading-relaxed">
                   To be recognized as a reliable food brand that provides affordable, modern and nutritious fillets made from kamote.
                 </p>
               </div>
               <div className="rounded-[32px] border border-gray-200 bg-white p-8 shadow-lg reveal">
                 <h3 className="text-2xl font-heading font-bold text-kamora-dark mb-3">Our Mission</h3>
-                <p className="text-gray-600 leading-relaxed">
+                <p className="text-black700 leading-relaxed">
                    To provide safe, nutritious, and affordable plant-based fillet products made from locally sourced ingredients, helping consumers enjoy healthier meals without compromising taste or budget.
                 </p>
               </div>
@@ -114,7 +114,7 @@ const About: React.FC = () => {
             <h2 className="text-3xl md:text-4xl font-heading font-bold text-kamora-dark">
               Building strong partnerships with every step.
             </h2>
-            <p className="mt-4 text-base text-gray-600 max-w-2xl mx-auto leading-relaxed">
+            <p className="mt-4 text-base text-white600 max-w-2xl mx-auto leading-relaxed">
               We work with trusted suppliers, community partners, and local teams to deliver quality food and consistent service.
             </p>
           </div>
@@ -127,7 +127,7 @@ const About: React.FC = () => {
               <h3 className="text-xl font-heading font-bold text-kamora-dark mb-3">
                 Fresh ingredients, every day
               </h3>
-              <p className="text-gray-600 leading-relaxed">
+              <p className="text-white600 leading-relaxed">
                 Partnering with local growers and producers to ensure the best quality in every dish.
               </p>
             </div>
@@ -138,7 +138,7 @@ const About: React.FC = () => {
               <h3 className="text-xl font-heading font-bold text-kamora-dark mb-3">
                 Serving people together
               </h3>
-              <p className="text-gray-600 leading-relaxed">
+              <p className="text-white600 leading-relaxed">
                 Building relationships with our neighborhood to bring people closer over food.
               </p>
             </div>
@@ -149,7 +149,7 @@ const About: React.FC = () => {
               <h3 className="text-xl font-heading font-bold text-kamora-dark mb-3">
                 Service that feels personal
               </h3>
-              <p className="text-gray-600 leading-relaxed">
+              <p className="text-white600 leading-relaxed">
                 Working with experienced partners to deliver a welcoming and consistent guest experience.
               </p>
             </div>

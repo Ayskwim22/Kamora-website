@@ -15,10 +15,10 @@ const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
           <h1 className="text-5xl md:text-7xl font-bold text-kamora-dark mb-6">
             Welcome to <span className="text-kamora-orange">Kamora</span>
           </h1>
-          <p className="text-xl md:text-2xl text-gray-700 mb-8 leading-relaxed">
+          <p className="text-xl md:text-2xl text-white mb-8 leading-relaxed">
             Experience the perfect blend of flavors with our curated selection
           </p>
-          <div className="text-lg md:text-xl text-gray-600 mb-12 max-w-2xl mx-auto">
+          <div className="text-lg md:text-xl text-white mb-12 max-w-2xl mx-auto">
             <p className="mb-4">
               At Kamora, we offer a carefully crafted dining experience featuring:
             </p>
@@ -27,7 +27,7 @@ const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
               <span>🥗 One Side Dish</span>
               <span>🥤 One Drink</span>
             </div>
-            <p className="mt-4 text-gray-600">
+            <p className="mt-4 text-white">
               Each item is thoughtfully prepared and reasonably priced for your enjoyment
             </p>
           </div>

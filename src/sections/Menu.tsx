@@ -304,12 +304,12 @@ const Menu: React.FC = () => {
               </div>
               <div className="min-w-0 flex-1">
                 <p className="text-sm font-semibold text-kamora-dark">Added to cart</p>
-                <p className="mt-1 text-sm text-gray-600 break-words">{notificationMessage}</p>
+                <p className="mt-1 text-sm text-white break-words">{notificationMessage}</p>
               </div>
               <button
                 type="button"
                 onClick={() => setShowNotification(false)}
-                className="text-gray-400 hover:text-kamora-orange"
+                className="text-white hover:text-kamora-orange"
                 aria-label="Dismiss notification"
               >
                 ×
@@ -319,7 +319,7 @@ const Menu: React.FC = () => {
         )}
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-heading font-bold text-kamora-dark mb-3">Our Menu</h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg text-white max-w-2xl mx-auto">
             Explore our categories with cards, then open a dedicated page for each collection of menu items.
           </p>
         </div>
@@ -344,7 +344,7 @@ const Menu: React.FC = () => {
               <div className="max-w-3xl">
                 <p className="text-sm uppercase tracking-[0.4em] text-kamora-orange font-semibold">{activeCategoryData?.label}</p>
                 <h3 className="mt-4 text-4xl md:text-5xl font-heading font-bold text-kamora-dark">{activeCategoryData?.label}</h3>
-                <p className="mt-4 text-lg text-gray-600">{activeCategoryData?.description}</p>
+                <p className="mt-4 text-lg text-white">{activeCategoryData?.description}</p>
               </div>
               <div className="flex flex-wrap items-center gap-3">
                 <Button variant="secondary" onClick={clearCategoryView} className="px-5 py-3">
@@ -370,7 +370,7 @@ const Menu: React.FC = () => {
                   <div className="flex flex-col flex-1 p-6">
                     <div className="mb-4">
                       <h4 className="text-xl font-heading font-bold text-kamora-dark">{item.name}</h4>
-                      <p className="mt-2 text-sm text-gray-500">A delicious option from our {activeCategoryData?.label.toLowerCase()} menu.</p>
+                      <p className="mt-2 text-sm text-white">A delicious option from our {activeCategoryData?.label.toLowerCase()} menu.</p>
                     </div>
                     <div className="mt-auto flex flex-col gap-4">
                       <p className="text-xl font-bold text-kamora-orange">{item.priceLabel}</p>
@@ -432,7 +432,7 @@ const Menu: React.FC = () => {
 
               <div className="md:w-2/3 p-6 space-y-6">
                 <div>
-                  <p className="text-sm font-semibold text-gray-700 mb-3">Customize your order</p>
+                  <p className="text-sm font-semibold text-white mb-3">Customize your order</p>
                   {isMealItem && (
                     <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
                       {['Combo', 'Solo'].map((size) => (
@@ -450,7 +450,7 @@ const Menu: React.FC = () => {
                           className={`rounded-2xl border px-4 py-3 text-center transition font-semibold ${
                             selectedSize === size
                               ? 'border-kamora-orange bg-kamora-orange/10 text-kamora-dark'
-                              : 'border-gray-300 bg-white text-gray-700 hover:border-kamora-orange'
+                              : 'border-gray-300 bg-white text-white hover:border-kamora-orange'
                           }`}
                         >
                           {size}
@@ -464,7 +464,7 @@ const Menu: React.FC = () => {
                   <>
                     {isDrinkItem ? (
                       <div>
-                        <p className="text-sm font-semibold text-gray-700 mb-3">Choose your size</p>
+                        <p className="text-sm font-semibold text-white mb-3">Choose your size</p>
                         <div className="grid grid-cols-2 gap-3">
                           {[
                             { size: 'Regular', price: 19, label: '₱19.00' },
@@ -477,7 +477,7 @@ const Menu: React.FC = () => {
                               className={`rounded-2xl border px-4 py-4 text-center transition ${
                                 selectedDrinkSize === option.size
                                   ? 'border-kamora-orange bg-kamora-orange/10 text-kamora-dark'
-                                  : 'border-gray-300 bg-white text-gray-700 hover:border-kamora-orange'
+                                  : 'border-gray-300 bg-white text-white hover:border-kamora-orange'
                               }`}
                             >
                               <span className="font-semibold block">{option.size}</span>
@@ -490,7 +490,7 @@ const Menu: React.FC = () => {
                       <>
                         {selectedSize === 'Combo' && (
                           <div>
-                            <p className="text-sm font-semibold text-gray-700 mb-3">Choose your soup</p>
+                            <p className="text-sm font-semibold text-white mb-3">Choose your soup</p>
                             <div className="relative">
                               <div className="flex items-center gap-3">
                                 <button
@@ -498,7 +498,7 @@ const Menu: React.FC = () => {
                                     const container = document.getElementById('soup-carousel');
                                     if (container) container.scrollLeft -= 200;
                                   }}
-                                  className="flex-shrink-0 w-10 h-10 rounded-full bg-gray-300 hover:bg-gray-400 flex items-center justify-center text-gray-700 transition"
+                                  className="flex-shrink-0 w-10 h-10 rounded-full bg-gray-300 hover:bg-gray-400 flex items-center justify-center text-white transition"
                                 >
                                   ‹
                                 </button>
@@ -537,7 +537,7 @@ const Menu: React.FC = () => {
                                     const container = document.getElementById('soup-carousel');
                                     if (container) container.scrollLeft += 200;
                                   }}
-                                  className="flex-shrink-0 w-10 h-10 rounded-full bg-gray-300 hover:bg-gray-400 flex items-center justify-center text-gray-700 transition"
+                                  className="flex-shrink-0 w-10 h-10 rounded-full bg-gray-300 hover:bg-gray-400 flex items-center justify-center text-white transition"
                                 >
                                   ›
                                 </button>
@@ -547,7 +547,7 @@ const Menu: React.FC = () => {
                         )}
 
                         <div>
-                          <p className="text-sm font-semibold text-gray-700 mb-3">Choose your drink</p>
+                          <p className="text-sm font-semibold text-white mb-3">Choose your drink</p>
                           <div className="relative">
                             <div className="flex items-center gap-3">
                               <button
@@ -555,7 +555,7 @@ const Menu: React.FC = () => {
                                   const container = document.getElementById('drink-carousel');
                                   if (container) container.scrollLeft -= 200;
                                 }}
-                                className="flex-shrink-0 w-10 h-10 rounded-full bg-gray-300 hover:bg-gray-400 flex items-center justify-center text-gray-700 transition"
+                                className="flex-shrink-0 w-10 h-10 rounded-full bg-gray-300 hover:bg-gray-400 flex items-center justify-center text-white transition"
                               >
                                 ‹
                               </button>
@@ -594,7 +594,7 @@ const Menu: React.FC = () => {
                                   const container = document.getElementById('drink-carousel');
                                   if (container) container.scrollLeft += 200;
                                 }}
-                                className="flex-shrink-0 w-10 h-10 rounded-full bg-gray-300 hover:bg-gray-400 flex items-center justify-center text-gray-700 transition"
+                                className="flex-shrink-0 w-10 h-10 rounded-full bg-gray-300 hover:bg-gray-400 flex items-center justify-center text-white transition"
                               >
                                 ›
                               </button>
@@ -603,7 +603,7 @@ const Menu: React.FC = () => {
 
                           {selectedDrink && (
                             <div className="mt-4">
-                              <p className="text-sm font-semibold text-gray-700 mb-3">Choose your drink size</p>
+                              <p className="text-sm font-semibold text-white mb-3">Choose your drink size</p>
                               <div className="grid grid-cols-2 gap-3">
                                 {((customizingItem?.category === 'burger' || customizingItem?.category === 'snacks' || customizingItem?.category === 'soup')
                                   ? [
@@ -622,7 +622,7 @@ const Menu: React.FC = () => {
                                     className={`rounded-2xl border px-4 py-4 text-center transition ${
                                       selectedDrinkSize === option.size
                                         ? 'border-kamora-orange bg-kamora-orange/10 text-kamora-dark'
-                                        : 'border-gray-300 bg-white text-gray-700 hover:border-kamora-orange'
+                                        : 'border-gray-300 bg-white text-white hover:border-kamora-orange'
                                     }`}
                                   >
                                     <span className="font-semibold block">{option.size}</span>
@@ -640,7 +640,7 @@ const Menu: React.FC = () => {
 
                 {(isMealItem || isSnackItem || isSoupItem) && (
                   <div>
-                    <p className="text-sm font-semibold text-gray-700 mb-3">Include Add-ons</p>
+                    <p className="text-sm font-semibold text-white mb-3">Include Add-ons</p>
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                       {currentCustomizationOptions.map((option) => {
                         const qty = addonQuantities[option.value] || 0;
@@ -689,7 +689,7 @@ const Menu: React.FC = () => {
                 {/* Footer */}
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-t pt-6">
                   <div>
-                    <p className="text-sm text-gray-500">Add-ons fee</p>
+                    <p className="text-sm text-white">Add-ons fee</p>
                     <p className="text-lg font-bold text-kamora-orange">+₱{totalAddonFee.toFixed(2)}</p>
                   </div>
                   <div className="flex flex-col gap-2">

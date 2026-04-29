@@ -58,7 +58,7 @@ const Navbar: React.FC<NavbarProps> = ({ activeTab, onTabChange }) => {
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out ${
         isScrolled ? 'shadow-lg' : 'backdrop-blur-sm'
       } ${isNavbarShrunken ? 'h-12' : 'h-16'}`}
-      style={{ backgroundColor: '#E46A2A' }}
+              style={{ backgroundColor: '#ff9b3d', borderColor: 'rgba(255,255,255,0.3)' }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
         <div className="flex justify-between items-center h-full transition-all duration-300">
@@ -139,7 +139,7 @@ const Navbar: React.FC<NavbarProps> = ({ activeTab, onTabChange }) => {
         <div className={`px-2 space-y-1 sm:px-3 border-t transition-all duration-300 ${
           isNavbarShrunken ? 'py-1' : 'py-2'
         }`}
-        style={{ backgroundColor: '#fd6615', borderColor: 'rgba(255,255,255,0.2)' }}>
+        style={{ backgroundColor: '#FB8C00', borderColor: 'rgba(255,255,255,0.3)' }}>
           {navItems.map((item) => (
             <button
               key={item.id}
