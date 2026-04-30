@@ -651,7 +651,7 @@ const Cart: React.FC = () => {
           <div className="mb-3">
             <div className="flex flex-col gap-1">
               <span className="text-base font-semibold text-kamora-dark">Total</span>
-              <span className="text-xl font-bold text-kamora-orange">₱${cart.total.toFixed(2)}</span>
+              <span className="text-xl font-bold text-kamora-orange">₱{cart.total.toFixed(2)}</span>
             </div>
             <p className="text-xs text-black mt-2">Review your order details and proceed to checkout when you're ready.</p>
           </div>
