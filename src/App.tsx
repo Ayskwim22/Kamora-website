@@ -27,12 +27,14 @@ const hashToTab = (hash: string): TabKey => {
 };
 
 const App: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<TabKey>(() => {
-    if (typeof window === 'undefined') return 'home';
-    return hashToTab(window.location.hash);
-  });
+  const [activeTab, setActiveTab] = useState<TabKey>('home');
 
   useEffect(() => {
+    // Clear hash on page load to reset to homepage
+    if (window.location.hash) {
+      window.history.replaceState(null, '', window.location.pathname);
+    }
+
     const handleHashChange = () => {
       setActiveTab(hashToTab(window.location.hash));
     };
@@ -51,14 +53,14 @@ const App: React.FC = () => {
   return (
     <CartProvider>
       <CartUiProvider>
-        <div className="min-h-screen pt-16">
+        <div className={`min-h-screen ${activeTab === 'home' ? '' : 'pt-16'}`}>
           <Navbar activeTab={activeTab} onTabChange={handleTabChange} />
           {activeTab === 'home' && <EnhancedHero onNavigate={handleTabChange} />}
           {activeTab === 'home' && <ScrollTextMarquee />}
           {activeTab === 'home' && (
             <PhotoGallery
-              title="Restaurant Design Gallery"
-              description="Discover our dining rooms, lounge spaces, bar details, and warm interior design with subtle animated transitions."
+              title="Featured Menu & Events"
+              description="Explore our signature dishes, special menu favorites, and upcoming events for a memorable dining experience."
             />
           )}
           {activeTab === 'home' && <QuickLinks onNavigate={handleTabChange} />}

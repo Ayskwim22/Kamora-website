@@ -50,15 +50,15 @@ const Navbar: React.FC<NavbarProps> = ({ activeTab, onTabChange }) => {
 
   // Determine navbar height based on scroll and hover
   const isNavbarShrunken = isScrollingDown && !isHoveringNav && isScrolled;
+  const isHomeTop = activeTab === 'home' && !isScrolled;
 
   return (
     <nav
       onMouseEnter={() => setIsHoveringNav(true)}
       onMouseLeave={() => setIsHoveringNav(false)}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out ${
-        isScrolled ? 'shadow-lg' : 'backdrop-blur-sm'
+        isHomeTop ? 'bg-transparent backdrop-blur-sm shadow-none' : 'bg-[#ff9b3d] shadow-lg'
       } ${isNavbarShrunken ? 'h-12' : 'h-16'}`}
-              style={{ backgroundColor: '#ff9b3d', borderColor: 'rgba(255,255,255,0.3)' }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
         <div className="flex justify-between items-center h-full transition-all duration-300">
@@ -66,9 +66,9 @@ const Navbar: React.FC<NavbarProps> = ({ activeTab, onTabChange }) => {
           <div className="flex-shrink-0">
             <button
               type="button"
-              className={`inline-flex items-center font-heading font-bold text-white cursor-pointer transition-all duration-300 ${
+              className={`inline-flex items-center font-heading font-bold cursor-pointer transition-all duration-300 ${
                 isNavbarShrunken ? 'text-base' : 'text-2xl'
-              }`}
+              } ${isHomeTop ? 'text-kamora-orange' : 'text-white'}`}
               onClick={() => handleNavClick('home')}
             >
               <img
@@ -88,18 +88,22 @@ const Navbar: React.FC<NavbarProps> = ({ activeTab, onTabChange }) => {
                   key={item.id}
                   type="button"
                   onClick={() => handleNavClick(item.id)}
-                  className={`font-medium transition-all duration-300 relative group text-white ${
+                  className={`font-medium transition-all duration-300 relative group ${isHomeTop ? 'text-kamora-orange' : 'text-white'} ${
                     isNavbarShrunken ? 'text-xs' : 'text-sm'
                   } ${
                     activeTab === item.id
-                      ? 'brightness-90'
+                      ? isHomeTop ? 'font-bold' : 'brightness-90'
                       : 'hover:brightness-90'
                   }`}
                 >
                   {item.label}
                   {/* Animated underline */}
-                  <span className={`absolute bottom-0 left-0 h-0.5 bg-white transition-all duration-300 ${
-                    activeTab === item.id ? 'w-full' : 'w-0 group-hover:w-full'
+                  <span className={`absolute bottom-0 left-0 h-0.5 transition-all duration-300 ${
+                    activeTab === item.id
+                      ? isHomeTop
+                        ? 'bg-kamora-orange w-full'
+                        : 'bg-white w-full'
+                      : 'bg-white/60 w-0 group-hover:w-full'
                   }`} />
                 </button>
               ))}
@@ -110,7 +114,7 @@ const Navbar: React.FC<NavbarProps> = ({ activeTab, onTabChange }) => {
           <div className="md:hidden">
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-white hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white transition-all duration-300"
+              className={`inline-flex items-center justify-center p-2 rounded-md ${isHomeTop ? 'text-kamora-orange hover:bg-kamora-orange/10 focus:ring-kamora-orange' : 'text-white hover:bg-white/20 focus:ring-white'} focus:outline-none focus:ring-2 focus:ring-inset transition-all duration-300`}
             >
               <svg
                 className={`transition-transform duration-300 ${isNavbarShrunken ? 'h-5 w-5' : 'h-6 w-6'}`}

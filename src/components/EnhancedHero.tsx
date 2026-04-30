@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Button from './Button';
+import interiorImg from '../../assets/Interior.png';
+import interior2Img from '../../assets/interior2.png';
+import interior3Img from '../../assets/interior3.png';
 
 type TabKey = 'home' | 'menu' | 'about' | 'contact';
 
@@ -11,22 +14,21 @@ const EnhancedHero: React.FC<EnhancedHeroProps> = ({ onNavigate }) => {
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [isAutoPlay, setIsAutoPlay] = useState(true);
 
-  // Featured images - replace with your actual image URLs
   const featuredImages = [
     {
-      url: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=1200&h=600&fit=crop',
-      title: 'Delicious Meals',
-      subtitle: 'Freshly prepared with love',
+      url: interiorImg,
+      title: 'Dining Interiors',
+      subtitle: 'Warm, inviting spaces to enjoy your meal',
     },
     {
-      url: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=1200&h=600&fit=crop',
-      title: 'Premium Burgers',
-      subtitle: 'Juicy and flavorful',
+      url: interior3Img,
+      title: 'Cozy Ambiance',
+      subtitle: 'Comfort and style for every guest',
     },
     {
-      url: 'https://images.unsplash.com/photo-1585238341710-4ebb0c0c05c3?w=1200&h=600&fit=crop',
-      title: 'Perfect Snacks',
-      subtitle: 'Crispy and tasty',
+      url: interior2Img,
+      title: 'Modern Design',
+      subtitle: 'Beautifully styled interiors for a polished dining experience',
     },
   ];
 
@@ -56,7 +58,7 @@ const EnhancedHero: React.FC<EnhancedHeroProps> = ({ onNavigate }) => {
   return (
     <section id="home" className="relative flex flex-col overflow-hidden">
       {/* Main Hero with Image Slider */}
-      <div className="relative h-64 sm:h-80 md:h-96 lg:h-[500px] w-full">
+      <div className="relative h-[420px] sm:h-[520px] md:h-[620px] lg:h-[680px] w-full">
         {/* Image Container */}
         <div className="absolute inset-0">
           {featuredImages.map((image, index) => (
@@ -99,7 +101,7 @@ const EnhancedHero: React.FC<EnhancedHeroProps> = ({ onNavigate }) => {
         {/* Navigation Arrows */}
         <button
           onClick={prevImage}
-          className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 bg-white/20 hover:bg-white/40 text-white rounded-full p-2 sm:p-3 transition-all duration-300 backdrop-blur-sm hover:scale-110 group hidden sm:flex items-center justify-center"
+          className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-[60] bg-white/20 hover:bg-white/40 text-white rounded-full p-2 sm:p-3 transition-all duration-300 backdrop-blur-sm hover:scale-110 group hidden sm:flex items-center justify-center"
           aria-label="Previous image"
         >
           <svg className="w-5 h-5 sm:w-6 sm:h-6 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -108,7 +110,7 @@ const EnhancedHero: React.FC<EnhancedHeroProps> = ({ onNavigate }) => {
         </button>
         <button
           onClick={nextImage}
-          className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 bg-white/20 hover:bg-white/40 text-white rounded-full p-2 sm:p-3 transition-all duration-300 backdrop-blur-sm hover:scale-110 group hidden sm:flex items-center justify-center"
+          className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-[60] bg-white/20 hover:bg-white/40 text-white rounded-full p-2 sm:p-3 transition-all duration-300 backdrop-blur-sm hover:scale-110 group hidden sm:flex items-center justify-center"
           aria-label="Next image"
         >
           <svg className="w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -135,7 +137,7 @@ const EnhancedHero: React.FC<EnhancedHeroProps> = ({ onNavigate }) => {
         {/* Auto-play indicator */}
         <button
           onClick={() => setIsAutoPlay(!isAutoPlay)}
-          className="absolute top-4 right-4 sm:top-6 sm:right-6 z-20 bg-white/20 hover:bg-white/40 text-white rounded-full p-2 sm:p-3 transition-all duration-300 backdrop-blur-sm"
+          className="absolute top-4 right-4 sm:top-6 sm:right-6 z-[60] bg-white/20 hover:bg-white/40 text-white rounded-full p-2 sm:p-3 transition-all duration-300 backdrop-blur-sm"
           title={isAutoPlay ? 'Pause slideshow' : 'Play slideshow'}
         >
           {isAutoPlay ? (

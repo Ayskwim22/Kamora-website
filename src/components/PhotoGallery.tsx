@@ -5,6 +5,7 @@ import drinksImage from '../../assets/drinks.png';
 import burgerImage from '../../assets/burger.png';
 import snacksImage from '../../assets/snacks.png';
 import soupImage from '../../assets/soup.png';
+import upcomingEventImage from '../../assets/upcomingevent.png';
 
 interface GalleryImage {
   id: string;
@@ -77,13 +78,27 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({
     },
   ];
 
+  const categoryKeyMap: Record<string, string> = {
+    Meals: 'meal',
+    Drinks: 'drinks',
+    Snacks: 'snacks',
+    Soups: 'soup',
+    Burgers: 'burger',
+  };
+
   const filteredImages = galleryImages;
+
+  const exploreCategory = (image: GalleryImage) => {
+    const categoryKey = categoryKeyMap[image.type] ?? 'meal';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.location.hash = `#category-${categoryKey}`;
+    setSelectedImage(null);
+  };
 
   return (
     <section id="featured-events" className="py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-[#fff2e8]">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-10">
-          <p className="text-sm uppercase tracking-[0.3em] text-kamora-red mb-3">Upcoming Events</p>
           <h2 className="text-4xl md:text-5xl font-bold text-kamora-dark mb-4">{title}</h2>
           <p className="text-lg text-kamora-dark/75 max-w-3xl mx-auto">{description}</p>
         </div>
@@ -134,7 +149,7 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({
             </div>
             <div className="rounded-[2rem] overflow-hidden shadow-2xl">
               <img
-                src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200&h=800&auto=format&fit=crop"
+                src={upcomingEventImage}
                 alt="Event preview"
                 className="w-full h-full object-cover"
               />
@@ -152,7 +167,7 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({
             onClick={() => setSelectedImage(null)}
           >
             <div
-              className="relative max-w-4xl w-full max-h-[90vh] rounded-2xl overflow-hidden bg-white"
+              className="relative w-full max-w-[28rem] max-h-[90vh] rounded-3xl overflow-hidden bg-white shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             >
               <button
@@ -166,12 +181,23 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({
               <img
                 src={selectedImage.url}
                 alt={selectedImage.title}
-                className="w-full h-full object-cover"
+                className="block w-full h-auto object-contain"
               />
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6 text-white">
-                <h3 className="text-2xl font-bold mb-2">{selectedImage.title}</h3>
-                <p className="text-sm uppercase tracking-[0.15em] text-kamora-orange mb-1">{selectedImage.type}</p>
-                <p className="text-gray-300">{selectedImage.date}</p>
+              <div className="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-black/90 to-transparent text-white">
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+                  <div>
+                    <h3 className="text-2xl font-bold mb-2">{selectedImage.title || selectedImage.type}</h3>
+                    <p className="text-sm uppercase tracking-[0.15em] text-kamora-orange mb-1">{selectedImage.type}</p>
+                    <p className="text-gray-300">{selectedImage.date}</p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => exploreCategory(selectedImage)}
+                    className="inline-flex items-center justify-center rounded-full bg-kamora-orange px-5 py-3 text-sm font-semibold uppercase tracking-[0.2em] text-white shadow-lg transition hover:bg-kamora-red"
+                  >
+                    Explore {categoryKeyMap[selectedImage.type] ? selectedImage.type : 'Menu'}
+                  </button>
+                </div>
               </div>
             </div>
           </div>

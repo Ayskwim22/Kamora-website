@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
 import Button from '../components/Button';
-import facebookIcon from '../../assets/facebook.png';
-import instaIcon from '../../assets/insta.png';
-import tiktokIcon from '../../assets/tiktok.png';
 
 interface FormData {
   name: string;
@@ -109,23 +106,26 @@ const Contact: React.FC = () => {
   }
 
   return (
-    <section id="contact" className="section-padding bg-white">
+    <section id="contact" className="section-padding bg-gradient-to-br from-white via-white to-kamora-cream">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-12">
+        {/* Header */}
+        <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-heading font-bold text-kamora-dark mb-4">
             Get in Touch
           </h2>
-          <p className="text-xl text-white600 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             We'd love to hear from you. Send us a message and we'll respond as soon as possible.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
+        {/* Contact Form and Info */}
+        <div className="grid md:grid-cols-2 gap-12">
           {/* Contact Form */}
-          <div>
+          <div className="bg-white rounded-2xl p-8 shadow-lg">
+            <h3 className="text-2xl font-bold text-kamora-dark mb-6">Send us a Message</h3>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label htmlFor="name" className="block text-sm font-medium text-white700 mb-2">
+                <label htmlFor="name" className="block text-sm font-semibold text-kamora-dark mb-2">
                   Name *
                 </label>
                 <input
@@ -134,18 +134,18 @@ const Contact: React.FC = () => {
                   name="name"
                   value={formData.name}
                   onChange={handleInputChange}
-                  className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-kamora-orange focus:border-transparent transition-colors ${
-                    errors.name ? 'border-red-500' : 'border-gray-300'
+                  className={`w-full px-4 py-3 border-2 rounded-lg focus:ring-2 focus:ring-kamora-orange focus:border-kamora-orange transition-colors ${
+                    errors.name ? 'border-red-500' : 'border-gray-200'
                   }`}
                   placeholder="Your full name"
                 />
                 {errors.name && (
-                  <p className="mt-1 text-sm text-red-600">{errors.name}</p>
+                  <p className="mt-1 text-sm text-red-600 font-medium">{errors.name}</p>
                 )}
               </div>
 
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-white700 mb-2">
+                <label htmlFor="email" className="block text-sm font-semibold text-kamora-dark mb-2">
                   Email *
                 </label>
                 <input
@@ -154,18 +154,18 @@ const Contact: React.FC = () => {
                   name="email"
                   value={formData.email}
                   onChange={handleInputChange}
-                  className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-kamora-orange focus:border-transparent transition-colors ${
-                    errors.email ? 'border-red-500' : 'border-gray-300'
+                  className={`w-full px-4 py-3 border-2 rounded-lg focus:ring-2 focus:ring-kamora-orange focus:border-kamora-orange transition-colors ${
+                    errors.email ? 'border-red-500' : 'border-gray-200'
                   }`}
                   placeholder="your.email@example.com"
                 />
                 {errors.email && (
-                  <p className="mt-1 text-sm text-red-600">{errors.email}</p>
+                  <p className="mt-1 text-sm text-red-600 font-medium">{errors.email}</p>
                 )}
               </div>
 
               <div>
-                <label htmlFor="message" className="block text-sm font-medium text-white700 mb-2">
+                <label htmlFor="message" className="block text-sm font-semibold text-kamora-dark mb-2">
                   Message *
                 </label>
                 <textarea
@@ -174,76 +174,85 @@ const Contact: React.FC = () => {
                   value={formData.message}
                   onChange={handleInputChange}
                   rows={5}
-                  className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-kamora-orange focus:border-transparent transition-colors resize-none ${
-                    errors.message ? 'border-red-500' : 'border-gray-300'
+                  className={`w-full px-4 py-3 border-2 rounded-lg focus:ring-2 focus:ring-kamora-orange focus:border-kamora-orange transition-colors resize-none ${
+                    errors.message ? 'border-red-500' : 'border-gray-200'
                   }`}
                   placeholder="Tell us how we can help you..."
                 />
                 {errors.message && (
-                  <p className="mt-1 text-sm text-red-600">{errors.message}</p>
+                  <p className="mt-1 text-sm text-red-600 font-medium">{errors.message}</p>
                 )}
               </div>
 
-              <Button
+              <button
                 type="submit"
-                variant="primary"
                 disabled={isSubmitting}
-                className="w-full"
+                className="w-full bg-gradient-to-r from-kamora-orange to-kamora-red text-white font-bold py-3 rounded-lg hover:shadow-lg transition-all duration-300 disabled:opacity-50"
               >
                 {isSubmitting ? 'Sending...' : 'Send Message'}
-              </Button>
+              </button>
             </form>
           </div>
 
           {/* Contact Information */}
-          <div className="space-y-8">
-            <div className="bg-kamora-cream rounded-lg p-6">
-              <h3 className="text-xl font-bold text-kamora-dark mb-4">Contact Information</h3>
-              <div className="space-y-4">
-                <div className="flex items-center">
-                  <svg className="w-5 h-5 mr-3 text-kamora-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="space-y-6">
+            {/* Contact Info Card */}
+            <div className="bg-gradient-to-br from-kamora-cream to-orange-50 rounded-2xl p-8 shadow-lg">
+              <h3 className="text-2xl font-bold text-kamora-dark mb-6">Contact Information</h3>
+              <div className="space-y-5">
+                <div className="flex items-start">
+                  <svg className="w-6 h-6 mr-4 text-kamora-orange flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
-                  <span className="text-white700">goldensunfield@gmail.com</span>
+                  <div>
+                    <p className="text-sm text-gray-600 font-semibold">Email</p>
+                    <p className="text-gray-900 font-medium">goldensunfield@gmail.com</p>
+                  </div>
                 </div>
-                <div className="flex items-center">
-                  <svg className="w-5 h-5 mr-3 text-kamora-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="flex items-start">
+                  <svg className="w-6 h-6 mr-4 text-kamora-orange flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                   </svg>
-                  <span className="text-white700">+63 966 544 3985</span>
+                  <div>
+                    <p className="text-sm text-gray-600 font-semibold">Phone</p>
+                    <p className="text-gray-900 font-medium">+63 966 544 3985</p>
+                  </div>
                 </div>
-                <div className="flex items-center">
-                  <svg className="w-5 h-5 mr-3 text-kamora-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="flex items-start">
+                  <svg className="w-6 h-6 mr-4 text-kamora-orange flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
-                  <span className="text-white700">4031 Gen T. De Leon, Valenzuela City, Philippines</span>
+                  <div>
+                    <p className="text-sm text-gray-600 font-semibold">Address</p>
+                    <p className="text-gray-900 font-medium">4031 Gen T. De Leon, Valenzuela City, Philippines</p>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <div className="bg-kamora-cream rounded-lg p-6">
-              <h3 className="text-xl font-bold text-kamora-dark mb-4">Business Hours</h3>
-              <div className="space-y-2 text-white700">
-                <p>Monday to Saturday</p>
-                <p>8:00 AM - 8:00 PM</p>
-              
+            {/* Business Hours Card */}
+            <div className="bg-gradient-to-br from-kamora-orange/10 to-kamora-red/10 rounded-2xl p-8 shadow-lg border-2 border-kamora-orange/20">
+              <h3 className="text-2xl font-bold text-kamora-dark mb-4">Business Hours</h3>
+              <div className="space-y-3 text-gray-700 font-medium">
+                <p className="flex justify-between">
+                  <span>Monday to Saturday</span>
+                  <span className="font-bold text-kamora-orange">8:00 AM - 8:00 PM</span>
+                </p>
               </div>
             </div>
 
-            <div className="bg-kamora-cream rounded-lg p-6">
-              <h3 className="text-xl font-bold text-kamora-dark mb-4">Follow Us</h3>
-              <div className="flex items-center space-x-4">
-                <a href="https://www.facebook.com/profile.php?id=61573337227317&rdid=QUVyv1mVajnPPUUU&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1C4ayqFM75%2F#" target="_blank" rel="noreferrer">
-                  <img src={facebookIcon} alt="Facebook" className="w-6 h-6 object-contain" />
-                </a>
-                <a href="https://www.tiktok.com/@goldensunfield?_r=1&_t=ZS-95Q6eBgXIVI" target="_blank" rel="noreferrer">
-                  <img src={tiktokIcon} alt="TikTok" className="w-6 h-6 object-contain" />
-                </a>
-                <a href="https://www.instagram.com/kamora_official?igsh=NWN6ejJxbjRqdHMx" target="_blank" rel="noreferrer">
-                  <img src={instaIcon} alt="Instagram" className="w-6 h-6 object-contain" />
-                </a>
-              </div>
+            {/* Location Map Card - Portrait */}
+            <div className="bg-white rounded-2xl overflow-hidden shadow-lg border-4 border-kamora-orange h-80">
+              <iframe
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3858.8889888888887!2d121.27478!3d14.757083!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3398d6a5a5a5a5a5%3A0x5a5a5a5a5a5a5a5a!2s4031%20Gen%20T.%20De%20Leon%2C%20Valenzuela%20City%2C%20Philippines!5e0!3m2!1sen!2sph!4v1234567890"
+                title="Kamora Restaurant Location"
+              />
             </div>
           </div>
         </div>
