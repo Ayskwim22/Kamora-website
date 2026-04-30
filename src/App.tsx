@@ -4,6 +4,7 @@ import { CartUiProvider } from './contexts/CartUiContext';
 import Navbar from './components/Navbar';
 import EnhancedHero from './components/EnhancedHero';
 import ScrollTextMarquee from './components/ScrollTextMarquee';
+import PhotoGallery from './components/PhotoGallery';
 import QuickLinks from './components/QuickLinks';
 import Menu from './sections/Menu';
 import About from './sections/About';
@@ -54,6 +55,12 @@ const App: React.FC = () => {
           <Navbar activeTab={activeTab} onTabChange={handleTabChange} />
           {activeTab === 'home' && <EnhancedHero onNavigate={handleTabChange} />}
           {activeTab === 'home' && <ScrollTextMarquee />}
+          {activeTab === 'home' && (
+            <PhotoGallery
+              title="Restaurant Design Gallery"
+              description="Discover our dining rooms, lounge spaces, bar details, and warm interior design with subtle animated transitions."
+            />
+          )}
           {activeTab === 'home' && <QuickLinks onNavigate={handleTabChange} />}
           {activeTab === 'menu' && <Menu />}
           {activeTab === 'about' && <About />}

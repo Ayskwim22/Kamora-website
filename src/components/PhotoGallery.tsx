@@ -1,10 +1,18 @@
 import React, { useState } from 'react';
+import mealImage from '../../assets/meal.png';
+import meal2Image from '../../assets/meal 2.png';
+import drinksImage from '../../assets/drinks.png';
+import burgerImage from '../../assets/burger.png';
+import snacksImage from '../../assets/snacks.png';
+import soupImage from '../../assets/soup.png';
 
 interface GalleryImage {
   id: string;
   url: string;
   title: string;
   category: string;
+  date: string;
+  type: string;
 }
 
 interface PhotoGalleryProps {
@@ -13,119 +21,131 @@ interface PhotoGalleryProps {
 }
 
 const PhotoGallery: React.FC<PhotoGalleryProps> = ({
-  title = 'Our Gallery',
-  description = 'Explore our delicious food creations',
+  title = 'Featured Events',
+  description = 'Browse our upcoming restaurant events, special nights, and signature celebration spaces through vibrant photo cards.',
 }) => {
   const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null);
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
   const galleryImages: GalleryImage[] = [
     {
       id: '1',
-      url: 'https://images.unsplash.com/photo-1625867768218-81a19ba0ab60?w=500&h=400&fit=crop',
-      title: 'Signature Meal',
-      category: 'meals',
+      url: mealImage,
+      title: '',
+      category: '',
+      date: '',
+      type: 'Meals',
     },
     {
       id: '2',
-      url: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500&h=400&fit=crop',
-      title: 'Gourmet Burger',
-      category: 'burgers',
+      url: meal2Image,
+      title: '',
+      category: '',
+      date: '',
+      type: 'Meals',
     },
     {
       id: '3',
-      url: 'https://images.unsplash.com/photo-1585238341710-4ebb0c0c05c3?w=500&h=400&fit=crop',
-      title: 'Crispy Snacks',
-      category: 'snacks',
+      url: drinksImage,
+      title: '',
+      category: '',
+      date: '',
+      type: 'Drinks',
     },
     {
       id: '4',
-      url: 'https://images.unsplash.com/photo-1547592166-23ac45744acd?w=500&h=400&fit=crop',
-      title: 'Savory Soup',
-      category: 'soups',
+      url: burgerImage,
+      title: '',
+      category: '',
+      date: '',
+      type: 'Burgers',
     },
     {
       id: '5',
-      url: 'https://images.unsplash.com/photo-1606788981566-c0e69b90ebf3?w=500&h=400&fit=crop',
-      title: 'Tasty Drink',
-      category: 'drinks',
+      url: snacksImage,
+      title: '',
+      category: '',
+      date: '',
+      type: 'Snacks',
     },
     {
       id: '6',
-      url: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500&h=400&fit=crop',
-      title: 'Chef Special',
-      category: 'meals',
+      url: soupImage,
+      title: '',
+      category: '',
+      date: '',
+      type: 'Soups',
     },
   ];
 
-  const categories = ['all', 'meals', 'burgers', 'snacks', 'soups', 'drinks'];
-  const filteredImages =
-    selectedCategory === 'all'
-      ? galleryImages
-      : galleryImages.filter((img) => img.category === selectedCategory);
+  const filteredImages = galleryImages;
 
   return (
-    <section className="py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-white">
+    <section id="featured-events" className="py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-[#fff2e8]">
       <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-10">
+          <p className="text-sm uppercase tracking-[0.3em] text-kamora-red mb-3">Upcoming Events</p>
           <h2 className="text-4xl md:text-5xl font-bold text-kamora-dark mb-4">{title}</h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">{description}</p>
+          <p className="text-lg text-kamora-dark/75 max-w-3xl mx-auto">{description}</p>
         </div>
 
-        {/* Category Filter */}
-        <div className="flex flex-wrap justify-center gap-3 mb-12">
-          {categories.map((category) => (
-            <button
-              key={category}
-              onClick={() => setSelectedCategory(category)}
-              className={`px-6 py-2 rounded-full font-semibold transition-all duration-300 capitalize ${
-                selectedCategory === category
-                  ? 'bg-kamora-orange text-white shadow-lg'
-                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-              }`}
-            >
-              {category === 'all' ? 'All' : category}
-            </button>
-          ))}
-        </div>
-
-        {/* Gallery Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-          {filteredImages.map((image, index) => (
-            <div
-              key={image.id}
-              onClick={() => setSelectedImage(image)}
-              style={{
-                animation: `slideInUp 0.5s ease-out ${index * 0.1}s both`,
-              }}
-              className="group cursor-pointer relative overflow-hidden rounded-2xl aspect-square md:aspect-auto md:h-64"
-            >
-              <img
-                src={image.url}
-                alt={image.title}
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-              />
-              {/* Dark overlay */}
-              <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors duration-300" />
-
-              {/* Content overlay */}
-              <div className="absolute inset-0 flex flex-col items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <div className="text-center">
-                  <h3 className="text-xl md:text-2xl font-bold mb-2">{image.title}</h3>
-                  <p className="text-sm md:text-base capitalize text-gray-200">{image.category}</p>
-                </div>
-                <div className="mt-4 bg-kamora-orange rounded-full p-3">
-                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7" />
-                  </svg>
+        <div className="grid grid-cols-1 xl:grid-cols-[2fr_1fr] gap-6 mb-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            {filteredImages.map((image, index) => (
+              <div
+                key={image.id}
+                onClick={() => setSelectedImage(image)}
+                style={{ animation: `slideInUp 0.55s ease-out ${index * 0.1}s both` }}
+                className="group relative overflow-hidden rounded-[2rem] shadow-2xl cursor-pointer bg-white"
+              >
+                <img
+                  src={image.url}
+                  alt={image.title}
+                  loading="lazy"
+                  className="w-full h-72 object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute bottom-0 left-0 right-0 p-5 text-white">
+                  <div className="flex items-center justify-between gap-3 mb-2">
+                    <span className="bg-kamora-orange/90 px-3 py-1 rounded-full text-xs uppercase tracking-[0.2em] font-semibold">
+                      {image.type}
+                    </span>
+                    <span className="text-sm text-white/90">{image.date}</span>
+                  </div>
+                  <h3 className="text-xl font-bold leading-snug">{image.title}</h3>
                 </div>
               </div>
+            ))}
+          </div>
+
+          <aside className="space-y-6">
+            <div className="rounded-[2rem] bg-white/95 p-6 shadow-2xl backdrop-blur-xl border border-white/80">
+              <h3 className="text-2xl font-bold text-kamora-dark mb-4">Event Highlights</h3>
+              <div className="space-y-4">
+                {galleryImages.slice(0, 4).map((event) => (
+                  <div key={event.id} className="rounded-3xl bg-kamora-cream/80 p-4">
+                    <div className="flex items-center justify-between gap-3 mb-2">
+                      <p className="font-semibold text-kamora-dark">{event.title}</p>
+                      <span className="text-sm text-kamora-red">{event.date}</span>
+                    </div>
+                    <p className="text-sm text-kamora-dark/70">{event.type} with curated menu pairings and signature decor.</p>
+                  </div>
+                ))}
+              </div>
             </div>
-          ))}
+            <div className="rounded-[2rem] overflow-hidden shadow-2xl">
+              <img
+                src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200&h=800&auto=format&fit=crop"
+                alt="Event preview"
+                className="w-full h-full object-cover"
+              />
+              <div className="bg-gradient-to-t from-black/80 to-transparent p-6 text-white">
+                <h4 className="text-2xl font-bold">Celebrate Every Moment</h4>
+                <p className="text-sm text-white/80 mt-2">Design-forward events with mood lighting, curated tables, and a premium guest experience.</p>
+              </div>
+            </div>
+          </aside>
         </div>
 
-        {/* Modal for full image view */}
         {selectedImage && (
           <div
             className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4"
@@ -135,7 +155,6 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({
               className="relative max-w-4xl w-full max-h-[90vh] rounded-2xl overflow-hidden bg-white"
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Close Button */}
               <button
                 onClick={() => setSelectedImage(null)}
                 className="absolute top-4 right-4 z-10 bg-kamora-orange text-white rounded-full p-2 hover:bg-kamora-red transition-colors duration-300"
@@ -144,18 +163,15 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
-
-              {/* Image */}
               <img
                 src={selectedImage.url}
                 alt={selectedImage.title}
                 className="w-full h-full object-cover"
               />
-
-              {/* Info Footer */}
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6 text-white">
                 <h3 className="text-2xl font-bold mb-2">{selectedImage.title}</h3>
-                <p className="text-gray-300 capitalize">{selectedImage.category}</p>
+                <p className="text-sm uppercase tracking-[0.15em] text-kamora-orange mb-1">{selectedImage.type}</p>
+                <p className="text-gray-300">{selectedImage.date}</p>
               </div>
             </div>
           </div>
